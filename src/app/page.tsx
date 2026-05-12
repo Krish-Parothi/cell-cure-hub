@@ -106,6 +106,7 @@ function HeroSection() {
           backgroundSize: '40px 40px',
         }}
       />
+      
 
       {/* Gradient orbs */}
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#00D084]/10 rounded-full blur-[120px] pointer-events-none" />

@@ -53,7 +53,7 @@ const statusColor = (s: string) => {
 
 // ── Page ─────────────────────────────────────────────────────────────
 export default function AdminDashboard() {
-  const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading, signOut } = useAuth();
   const router = useRouter();
   const [tab, setTab] = useState('overview');
   const [repairs, setRepairs] = useState<Repair[]>([]);

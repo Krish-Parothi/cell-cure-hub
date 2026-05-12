@@ -35,19 +35,43 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 
 
+// useEffect(() => {
+//     supabase.auth.getSession().then(({ data: { session: s } }) => {
+//       setSession(s);
+//       if (s?.user) {
+//         fetchProfile(s.user.id).then(async (profile) => {
+//           if (!profile) {
+//             await supabase.from('users').insert({
+//               id: s.user.id,
+//               full_name: s.user.user_metadata?.full_name || s.user.email,
+//               email: s.user.email,
+//               avatar_url: s.user.user_metadata?.avatar_url || null,
+//               role: 'customer',
+//             });
+//             const newProfile = await fetchProfile(s.user.id);
+//             setUser(newProfile);
+//           } else {
+//             setUser(profile);
+//           }
+//           setLoading(false);
+//         });
+//       } else {
+//         setLoading(false);
+//       }
+//     });
 useEffect(() => {
     supabase.auth.getSession().then(({ data: { session: s } }) => {
       setSession(s);
       if (s?.user) {
         fetchProfile(s.user.id).then(async (profile) => {
           if (!profile) {
-            await supabase.from('users').insert({
+            await supabase.from('users').upsert({  // ✅ insert → upsert
               id: s.user.id,
               full_name: s.user.user_metadata?.full_name || s.user.email,
               email: s.user.email,
               avatar_url: s.user.user_metadata?.avatar_url || null,
-              role: 'customer',
-            });
+              role: s.user.user_metadata?.role || 'customer',  // ✅ hardcoded fix
+            }, { onConflict: 'id', ignoreDuplicates: true });  // ✅ race condition fix
             const newProfile = await fetchProfile(s.user.id);
             setUser(newProfile);
           } else {
@@ -59,28 +83,48 @@ useEffect(() => {
         setLoading(false);
       }
     });
-
+    // const { data: { subscription } } = supabase.auth.onAuthStateChange(
+    //   async (_event, s) => {
+    //     setSession(s);
+    //     if (s?.user) {
+    //       let profile = await fetchProfile(s.user.id);
+    //       if (!profile) {
+    //         await supabase.from('users').insert({
+    //           id: s.user.id,
+    //           full_name: s.user.user_metadata?.full_name || s.user.email,
+    //           email: s.user.email,
+    //           avatar_url: s.user.user_metadata?.avatar_url || null,
+    //           role: 'customer',
+    //         });
+    //         profile = await fetchProfile(s.user.id);
+    //       }
+    //       setUser(profile);
+    //     } else {
+    //       setUser(null);
+    //     }
+    //   }
+    // );
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, s) => {
-        setSession(s);
-        if (s?.user) {
-          let profile = await fetchProfile(s.user.id);
-          if (!profile) {
-            await supabase.from('users').insert({
-              id: s.user.id,
-              full_name: s.user.user_metadata?.full_name || s.user.email,
-              email: s.user.email,
-              avatar_url: s.user.user_metadata?.avatar_url || null,
-              role: 'customer',
-            });
-            profile = await fetchProfile(s.user.id);
-          }
-          setUser(profile);
-        } else {
-          setUser(null);
-        }
+  async (_event, s) => {
+    setSession(s);
+    if (s?.user) {
+      let profile = await fetchProfile(s.user.id);
+      if (!profile) {
+        await supabase.from('users').upsert({  // insert → upsert
+          id: s.user.id,
+          full_name: s.user.user_metadata?.full_name || s.user.email,
+          email: s.user.email,
+          avatar_url: s.user.user_metadata?.avatar_url || null,
+          role: s.user.user_metadata?.role || 'customer',  // ✅ yahi tha bug
+        }, { onConflict: 'id', ignoreDuplicates: true });  // ✅ race condition fix
+        profile = await fetchProfile(s.user.id);
       }
-    );
+      setUser(profile);
+    } else {
+      setUser(null);
+    }
+  }
+);
 
     return () => subscription.unsubscribe();
   }, [fetchProfile]);
@@ -90,24 +134,49 @@ useEffect(() => {
     return { error: error?.message ?? null };
   };
 
+  // const signUpWithPassword = async (
+  //   email: string,
+  //   password: string,
+  //   fullName: string,
+  //   role: UserRole
+  // ) => {
+  //   const { data, error } = await supabase.auth.signUp({ email, password });
+  //   if (error) return { error: error.message };
+  //   if (data.user) {
+  //     await supabase.from('users').insert({
+  //       id: data.user.id,
+  //       full_name: fullName,
+  //       email,
+  //       role,
+  //     });
+  //   }
+  //   return { error: null };
+  // };
+
   const signUpWithPassword = async (
-    email: string,
-    password: string,
-    fullName: string,
-    role: UserRole
-  ) => {
-    const { data, error } = await supabase.auth.signUp({ email, password });
-    if (error) return { error: error.message };
-    if (data.user) {
-      await supabase.from('users').insert({
-        id: data.user.id,
-        full_name: fullName,
-        email,
-        role,
-      });
+  email: string,
+  password: string,
+  fullName: string,
+  role: UserRole
+) => {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { full_name: fullName, role } // ✅ metadata mein save karo
     }
-    return { error: null };
-  };
+  });
+  if (error) return { error: error.message };
+  if (data.user) {
+    await supabase.from('users').insert({
+      id: data.user.id,
+      full_name: fullName,
+      email,
+      role, // ✅ yeh sahi hai
+    });
+  }
+  return { error: null };
+};
 
   const signInWithPhone = async (phone: string) => {
     const { error } = await supabase.auth.signInWithOtp({ phone });

@@ -87,11 +87,20 @@ export default function DashboardPage() {
   const [submittingEwaste, setSubmittingEwaste] = useState(false);
 
   // ---- Auth guard ----
-  useEffect(() => {
-    if (!authLoading && (!user || user.role !== 'customer')) {
-      router.replace('/login');
-    }
-  }, [authLoading, user, router]);
+  // useEffect(() => {
+  //   if (!authLoading && (!user || user.role !== 'customer')) {
+  //     router.replace('/login');
+  //   }
+  // }, [authLoading, user, router]);
+// ---- Auth guard ----
+useEffect(() => {
+  if (authLoading) return;
+  if (!user) { router.replace('/login'); return; }
+  if (user.role === 'admin') router.replace('/admin');
+  else if (user.role === 'technician') router.replace('/technician');
+  else if (user.role === 'delivery') router.replace('/delivery');
+  // customer yahi rehga ✅
+}, [authLoading, user, router]);
 
   // ---- Sync profile fields ----
   useEffect(() => {

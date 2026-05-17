@@ -14,8 +14,8 @@ import type { UserRole } from '@/lib/types';
 const ROLES: { value: UserRole; label: string }[] = [
   { value: 'customer', label: 'Customer' },
   { value: 'technician', label: 'Technician' },
-  // { value: 'delivery', label: 'Delivery' },
-  // { value: 'admin', label: 'Admin' },
+  { value: 'delivery', label: 'Delivery' },
+  { value: 'admin', label: 'Admin' },
 ];
 
 export default function SignupPage() {

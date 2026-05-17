@@ -380,13 +380,13 @@ export default function AdminDashboard() {
                 <Card className="bg-white/5 backdrop-blur-xl border border-white/10">
                   <CardHeader><CardTitle className="text-white text-sm">Top Repaired Devices</CardTitle></CardHeader>
                   <CardContent><ResponsiveContainer width="100%" height={250}>
-                    <PieChart><Pie data={topDevices} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label={({name,percent})=>`${name} ${(percent*100).toFixed(0)}%`} labelLine={{stroke:'#ffffff30'}}>{topDevices.map((_,i)=><Cell key={i} fill={COLORS[i%COLORS.length]} />)}</Pie><Tooltip contentStyle={{background:'#1A1A1A',border:'1px solid #ffffff10',borderRadius:8}} /></PieChart>
+                    <PieChart><Pie data={topDevices} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} label={({name,percent})=>`${name} ${((percent ?? 0) * 100).toFixed(0)}%`} labelLine={{stroke:'#ffffff30'}}>{topDevices.map((_,i)=><Cell key={i} fill={COLORS[i%COLORS.length]} />)}</Pie><Tooltip contentStyle={{background:'#1A1A1A',border:'1px solid #ffffff10',borderRadius:8}} /></PieChart>
                   </ResponsiveContainer></CardContent>
                 </Card>
                 <Card className="bg-white/5 backdrop-blur-xl border border-white/10">
                   <CardHeader><CardTitle className="text-white text-sm">Status Distribution</CardTitle></CardHeader>
                   <CardContent><ResponsiveContainer width="100%" height={250}>
-                    <PieChart><Pie data={statusDist} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={50} outerRadius={80} label={({name,percent})=>`${name} ${(percent*100).toFixed(0)}%`} labelLine={{stroke:'#ffffff30'}}>{statusDist.map((_,i)=><Cell key={i} fill={COLORS[i%COLORS.length]} />)}</Pie><Tooltip contentStyle={{background:'#1A1A1A',border:'1px solid #ffffff10',borderRadius:8}} /><Legend wrapperStyle={{color:'#ffffff80',fontSize:11}} /></PieChart>
+                    <PieChart><Pie data={statusDist} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={50} outerRadius={80} label={({name,percent})=>`${name} ${((percent ?? 0) * 100).toFixed(0)}%`} labelLine={{stroke:'#ffffff30'}}>{statusDist.map((_,i)=><Cell key={i} fill={COLORS[i%COLORS.length]} />)}</Pie><Tooltip contentStyle={{background:'#1A1A1A',border:'1px solid #ffffff10',borderRadius:8}} /><Legend wrapperStyle={{color:'#ffffff80',fontSize:11}} /></PieChart>
                   </ResponsiveContainer></CardContent>
                 </Card>
               </div>

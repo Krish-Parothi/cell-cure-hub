@@ -1532,147 +1532,294 @@ function PhoneTeardownSection() {
 /* ─────────────────────────────────────────
    HERO SECTION
 ───────────────────────────────────────── */
+// function HeroSection() {
+//   return (
+//     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
+//       {/* Diagonal orange accent block */}
+//       <div
+//         className="absolute top-0 right-0 w-[55%] h-full bg-[#FF5C00] pointer-events-none"
+//         style={{ clipPath: 'polygon(18% 0, 100% 0, 100% 100%, 0% 100%)' }}
+//       />
+
+//       {/* Dot grid overlay on orange */}
+//       <div
+//         className="absolute top-0 right-0 w-[55%] h-full opacity-[0.06] pointer-events-none"
+//         style={{
+//           clipPath: 'polygon(18% 0, 100% 0, 100% 100%, 0% 100%)',
+//           backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)',
+//           backgroundSize: '28px 28px',
+//         }}
+//       />
+
+//       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-12 lg:gap-0 pt-24 pb-16 w-full">
+//         {/* Left content */}
+//         <div className="flex-1 text-center lg:text-left pr-0 lg:pr-12">
+//           <motion.div
+//             initial={{ opacity: 0, y: 20 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             transition={{ duration: 0.5 }}
+//             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FF5C00]/10 border border-[#FF5C00]/25 text-[#FF5C00] text-xs font-bold tracking-widest uppercase mb-6"
+//           >
+//             <span className="w-2 h-2 rounded-full bg-[#FF5C00] animate-pulse" />
+//             Now serving all of Nagpur
+//           </motion.div>
+
+//           <motion.h1
+//             initial={{ opacity: 0, y: 30 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             transition={{ duration: 0.6, delay: 0.1 }}
+//             className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black text-[#1A1A1A] leading-[1.0] tracking-tight"
+//           >
+//             Nagpur&apos;s<br />
+//             Most <span className="text-[#FF5C00]">Trusted</span><br />
+//             Repair Hub
+//           </motion.h1>
+
+//           <motion.p
+//             initial={{ opacity: 0, y: 20 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             transition={{ duration: 0.6, delay: 0.3 }}
+//             className="mt-6 text-sm sm:text-base text-[#1A1A1A]/50 max-w-md mx-auto lg:mx-0 leading-relaxed"
+//           >
+//             Professional smartphone, laptop &amp; gadget repairs with free doorstep
+//             pickup, real-time tracking, and a 90-day warranty across Nagpur.
+//           </motion.p>
+
+//           <motion.div
+//             initial={{ opacity: 0, y: 20 }}
+//             animate={{ opacity: 1, y: 0 }}
+//             transition={{ duration: 0.6, delay: 0.45 }}
+//             className="mt-8 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
+//           >
+//             <Link
+//               href={COMING_SOON}
+//               className="bg-[#FF5C00] hover:bg-[#e05200] px-8 py-4 rounded-xl text-base font-bold text-white transition-colors flex items-center gap-2 shadow-[0_8px_30px_rgba(255,92,0,0.3)]"
+//             >
+//               Book a Repair
+//               <ArrowRight className="w-4 h-4" />
+//             </Link>
+//             <Link
+//               href={COMING_SOON}
+//               className="px-8 py-4 rounded-xl text-base font-semibold text-[#1A1A1A] border-2 border-[#1A1A1A]/15 hover:border-[#FF5C00] hover:text-[#FF5C00] transition-all flex items-center gap-2"
+//             >
+//               <Search className="w-4 h-4" />
+//               Track My Repair
+//             </Link>
+//           </motion.div>
+
+//           {/* Stats row */}
+//           <motion.div
+//             initial={{ opacity: 0 }}
+//             animate={{ opacity: 1 }}
+//             transition={{ duration: 0.6, delay: 0.6 }}
+//             className="mt-12 flex items-center gap-8 justify-center lg:justify-start"
+//           >
+//             {[
+//               { val: '5000+', label: 'Repairs Done' },
+//               { val: '48hr',  label: 'Avg Turnaround' },
+//               { val: '90-Day', label: 'Warranty' },
+//             ].map((s) => (
+//               <div key={s.val} className="text-center lg:text-left">
+//                 <div className="text-2xl font-black text-[#FF5C00]">{s.val}</div>
+//                 <div className="text-xs text-[#1A1A1A]/40 font-medium mt-0.5">{s.label}</div>
+//               </div>
+//             ))}
+//           </motion.div>
+//         </div>
+
+//         {/* Right - phone mockup on orange */}
+//         <motion.div
+//           initial={{ opacity: 0, x: 40 }}
+//           animate={{ opacity: 1, x: 0 }}
+//           transition={{ duration: 0.8, delay: 0.3 }}
+//           className="flex-shrink-0 relative z-10"
+//         >
+//           <div className="relative animate-float">
+//             {/* Shadow */}
+//             <div className="absolute -inset-4 bg-black/10 rounded-[50px] blur-[40px]" />
+
+//             {/* Phone frame */}
+//             <div className="relative w-[220px] sm:w-[260px] h-[440px] sm:h-[520px] bg-white rounded-[40px] border border-black/5 overflow-hidden shadow-2xl">
+//               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-[#F7F7F5] rounded-b-2xl z-10" />
+//               <div className="absolute inset-2 top-8 rounded-[32px] overflow-hidden bg-[#F7F7F5] flex flex-col">
+//                 {/* Orange top bar */}
+//                 <div className="bg-[#FF5C00] p-4 flex items-center gap-2">
+//                   <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center">
+//                     <Wrench className="w-4 h-4 text-white" />
+//                   </div>
+//                   <div>
+//                     <p className="text-white text-xs font-bold">CellCureHub</p>
+//                     <p className="text-white/70 text-[10px]">Repair in progress</p>
+//                   </div>
+//                 </div>
+//                 <div className="flex-1 p-4 space-y-3">
+//                   <div className="bg-white rounded-xl p-3 border border-[#E8E4DF]">
+//                     <p className="text-[10px] text-[#1A1A1A]/40 mb-1">iPhone 14 Pro • Screen</p>
+//                     <div className="w-full h-1.5 bg-[#F0EDE8] rounded-full overflow-hidden">
+//                       <div className="h-full w-[60%] bg-[#FF5C00] rounded-full" />
+//                     </div>
+//                     <p className="text-[10px] text-[#FF5C00] font-bold mt-1">60% Complete</p>
+//                   </div>
+//                   {['Booked', 'Picked Up', 'Repairing'].map((s, i) => (
+//                     <div key={s} className="flex items-center gap-2">
+//                       <div className={cn(
+//                         'w-2.5 h-2.5 rounded-full',
+//                         i < 2 ? 'bg-[#FF5C00]' : 'bg-[#FF5C00] animate-pulse'
+//                       )} />
+//                       <span className={cn(
+//                         'text-xs',
+//                         i < 2 ? 'text-[#1A1A1A]/50' : 'text-[#FF5C00] font-semibold'
+//                       )}>{s}</span>
+//                     </div>
+//                   ))}
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </motion.div>
+//       </div>
+
+//       {/* Bottom fade */}
+//       <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent pointer-events-none" />
+//     </section>
+//   );
+// }
+
 function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
-      {/* Diagonal orange accent block */}
-      <div
-        className="absolute top-0 right-0 w-[55%] h-full bg-[#FF5C00] pointer-events-none"
-        style={{ clipPath: 'polygon(18% 0, 100% 0, 100% 100%, 0% 100%)' }}
-      />
 
-      {/* Dot grid overlay on orange */}
-      <div
-        className="absolute top-0 right-0 w-[55%] h-full opacity-[0.06] pointer-events-none"
-        style={{
-          clipPath: 'polygon(18% 0, 100% 0, 100% 100%, 0% 100%)',
-          backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)',
-          backgroundSize: '28px 28px',
-        }}
-      />
+      {/* Premium soft gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-[#fff7f2] to-[#fff1e8]" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-12 lg:gap-0 pt-24 pb-16 w-full">
-        {/* Left content */}
-        <div className="flex-1 text-center lg:text-left pr-0 lg:pr-12">
+      {/* Glow blob */}
+      <div className="absolute top-[-120px] right-[-120px] w-[420px] h-[420px] bg-[#FF5C00]/10 rounded-full blur-[120px]" />
+
+      {/* Main Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-16 pt-28 pb-20 w-full">
+
+        {/* LEFT SIDE */}
+        <div className="flex-1 text-center lg:text-left">
+
+          {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FF5C00]/10 border border-[#FF5C00]/25 text-[#FF5C00] text-xs font-bold tracking-widest uppercase mb-6"
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#FF5C00]/10 border border-[#FF5C00]/20 text-[#FF5C00] text-xs font-bold tracking-[0.2em] uppercase mb-7"
           >
             <span className="w-2 h-2 rounded-full bg-[#FF5C00] animate-pulse" />
-            Now serving all of Nagpur
+            Now Serving All Of Nagpur
           </motion.div>
 
+          {/* Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-black text-[#1A1A1A] leading-[1.0] tracking-tight"
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="text-5xl sm:text-6xl lg:text-7xl xl:text-[92px] font-black text-[#111111] leading-[0.95] tracking-tight"
           >
-            Nagpur&apos;s<br />
-            Most <span className="text-[#FF5C00]">Trusted</span><br />
+            Nagpur&apos;s
+            <br />
+            Most
+            <span className="text-[#FF5C00]"> Trusted</span>
+            <br />
             Repair Hub
           </motion.h1>
 
+          {/* Description */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-6 text-sm sm:text-base text-[#1A1A1A]/50 max-w-md mx-auto lg:mx-0 leading-relaxed"
+            transition={{ duration: 0.6, delay: 0.25 }}
+            className="mt-7 text-base sm:text-lg text-[#1A1A1A]/60 max-w-xl leading-relaxed"
           >
-            Professional smartphone, laptop &amp; gadget repairs with free doorstep
-            pickup, real-time tracking, and a 90-day warranty across Nagpur.
+            Professional smartphone, laptop & gadget repairs with free
+            doorstep pickup, real-time tracking, and a 90-day warranty
+            across Nagpur.
           </motion.p>
 
+          {/* Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.45 }}
-            className="mt-8 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start"
           >
             <Link
               href={COMING_SOON}
-              className="bg-[#FF5C00] hover:bg-[#e05200] px-8 py-4 rounded-xl text-base font-bold text-white transition-colors flex items-center gap-2 shadow-[0_8px_30px_rgba(255,92,0,0.3)]"
+              className="bg-[#FF5C00] hover:bg-[#e05200] px-9 py-4 rounded-2xl text-base font-bold text-white transition-all duration-300 flex items-center gap-2 shadow-[0_10px_40px_rgba(255,92,0,0.35)]"
             >
-              Book a Repair
+              Book A Repair
               <ArrowRight className="w-4 h-4" />
             </Link>
+
             <Link
               href={COMING_SOON}
-              className="px-8 py-4 rounded-xl text-base font-semibold text-[#1A1A1A] border-2 border-[#1A1A1A]/15 hover:border-[#FF5C00] hover:text-[#FF5C00] transition-all flex items-center gap-2"
+              className="px-9 py-4 rounded-2xl text-base font-semibold text-[#1A1A1A] border border-[#1A1A1A]/10 bg-white hover:border-[#FF5C00]/40 hover:text-[#FF5C00] transition-all duration-300 flex items-center gap-2 shadow-sm"
             >
               <Search className="w-4 h-4" />
               Track My Repair
             </Link>
           </motion.div>
 
-          {/* Stats row */}
+          {/* Stats */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-            className="mt-12 flex items-center gap-8 justify-center lg:justify-start"
+            transition={{ duration: 0.6, delay: 0.55 }}
+            className="mt-14 flex flex-wrap items-center gap-10 justify-center lg:justify-start"
           >
             {[
-              { val: '5000+', label: 'Repairs Done' },
-              { val: '48hr',  label: 'Avg Turnaround' },
-              { val: '90-Day', label: 'Warranty' },
-            ].map((s) => (
-              <div key={s.val} className="text-center lg:text-left">
-                <div className="text-2xl font-black text-[#FF5C00]">{s.val}</div>
-                <div className="text-xs text-[#1A1A1A]/40 font-medium mt-0.5">{s.label}</div>
+              { value: '5000+', label: 'Repairs Done' },
+              { value: '48hr', label: 'Avg Turnaround' },
+              { value: '90-Day', label: 'Warranty' },
+            ].map((item) => (
+              <div key={item.value}>
+                <div className="text-3xl font-black text-[#FF5C00]">
+                  {item.value}
+                </div>
+                <div className="text-sm text-[#1A1A1A]/45 mt-1 font-medium">
+                  {item.label}
+                </div>
               </div>
             ))}
           </motion.div>
         </div>
 
-        {/* Right - phone mockup on orange */}
+        {/* RIGHT SIDE STORE IMAGE */}
         <motion.div
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="flex-shrink-0 relative z-10"
+          initial={{ opacity: 0, x: 50, scale: 0.95 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.2 }}
+          className="flex-1 flex justify-center"
         >
-          <div className="relative animate-float">
-            {/* Shadow */}
-            <div className="absolute -inset-4 bg-black/10 rounded-[50px] blur-[40px]" />
+          <div className="relative w-full max-w-[560px]">
 
-            {/* Phone frame */}
-            <div className="relative w-[220px] sm:w-[260px] h-[440px] sm:h-[520px] bg-white rounded-[40px] border border-black/5 overflow-hidden shadow-2xl">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-[#F7F7F5] rounded-b-2xl z-10" />
-              <div className="absolute inset-2 top-8 rounded-[32px] overflow-hidden bg-[#F7F7F5] flex flex-col">
-                {/* Orange top bar */}
-                <div className="bg-[#FF5C00] p-4 flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center">
-                    <Wrench className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <p className="text-white text-xs font-bold">CellCureHub</p>
-                    <p className="text-white/70 text-[10px]">Repair in progress</p>
-                  </div>
-                </div>
-                <div className="flex-1 p-4 space-y-3">
-                  <div className="bg-white rounded-xl p-3 border border-[#E8E4DF]">
-                    <p className="text-[10px] text-[#1A1A1A]/40 mb-1">iPhone 14 Pro • Screen</p>
-                    <div className="w-full h-1.5 bg-[#F0EDE8] rounded-full overflow-hidden">
-                      <div className="h-full w-[60%] bg-[#FF5C00] rounded-full" />
-                    </div>
-                    <p className="text-[10px] text-[#FF5C00] font-bold mt-1">60% Complete</p>
-                  </div>
-                  {['Booked', 'Picked Up', 'Repairing'].map((s, i) => (
-                    <div key={s} className="flex items-center gap-2">
-                      <div className={cn(
-                        'w-2.5 h-2.5 rounded-full',
-                        i < 2 ? 'bg-[#FF5C00]' : 'bg-[#FF5C00] animate-pulse'
-                      )} />
-                      <span className={cn(
-                        'text-xs',
-                        i < 2 ? 'text-[#1A1A1A]/50' : 'text-[#FF5C00] font-semibold'
-                      )}>{s}</span>
-                    </div>
-                  ))}
-                </div>
+            {/* Glow */}
+            <div className="absolute -inset-5 bg-[#FF5C00]/20 blur-[70px] rounded-[40px]" />
+
+            {/* Main Image */}
+            <div className="relative overflow-hidden rounded-[36px] shadow-[0_30px_80px_rgba(0,0,0,0.18)] border border-white/50">
+
+              <img
+                src="/store-image.jpg"
+                alt="CellCureHub Store"
+                className="w-full h-[620px] object-cover"
+              />
+
+              {/* Overlay Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+
+              {/* Floating Tag */}
+              <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md px-5 py-3 rounded-2xl shadow-xl border border-white/40">
+                <p className="text-[#FF5C00] text-xs font-bold tracking-widest uppercase">
+                  CellCureHub
+                </p>
+
+                <p className="text-[#111111] text-sm font-semibold mt-1">
+                  Repair • Accessories • Trust
+                </p>
               </div>
             </div>
           </div>

@@ -88,18 +88,10 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 const COMING_SOON_ROUTES = [
-  '/dashboard',
-  '/admin',
-  '/login',
-  '/signup',
   '/register',
   '/account',
   '/profile',
   '/orders',
-  '/book',
-  '/track',
-  '/delivery',
-  '/technician',
 ];
 
 export function middleware(request: NextRequest) {

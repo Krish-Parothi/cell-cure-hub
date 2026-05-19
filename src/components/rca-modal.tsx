@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Download, ClipboardCheck, FileText, Camera } from 'lucide-react';
 import type { RcaReport } from '@/lib/types';
@@ -78,8 +77,8 @@ export default function RcaModal({ report, open, onClose }: RcaModalProps) {
                   <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2"><Camera className="w-4 h-4 text-[#00D084]" /> Before Photos</h3>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {report.before_photos.map((url, i) => (
-                      <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="aspect-square rounded-xl overflow-hidden border border-white/10 relative group">
-                        <Image src={url} alt={`Before ${i + 1}`} fill className="object-cover group-hover:scale-105 transition-transform" />
+                      <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="aspect-square rounded-xl overflow-hidden border border-white/10 relative group block">
+                        <img src={url} alt={`Before ${i + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                       </a>
                     ))}
                   </div>
@@ -92,8 +91,8 @@ export default function RcaModal({ report, open, onClose }: RcaModalProps) {
                   <h3 className="text-sm font-semibold text-white mb-3 flex items-center gap-2"><Camera className="w-4 h-4 text-[#00D084]" /> After Photos</h3>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {report.after_photos.map((url, i) => (
-                      <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="aspect-square rounded-xl overflow-hidden border border-white/10 relative group">
-                        <Image src={url} alt={`After ${i + 1}`} fill className="object-cover group-hover:scale-105 transition-transform" />
+                      <a key={i} href={url} target="_blank" rel="noopener noreferrer" className="aspect-square rounded-xl overflow-hidden border border-white/10 relative group block">
+                        <img src={url} alt={`After ${i + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
                       </a>
                     ))}
                   </div>

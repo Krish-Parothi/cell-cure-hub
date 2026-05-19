@@ -30,6 +30,7 @@ export default function HistoryTab({ userId }: { userId: string }) {
   const [loading, setLoading] = useState(true);
   const [rcaReport, setRcaReport] = useState<RcaReport | null>(null);
   const [rcaOpen, setRcaOpen] = useState(false);
+  const [confirmedRcaIds, setConfirmedRcaIds] = useState<Set<string>>(new Set());
   const [reviewOpen, setReviewOpen] = useState(false);
   const [reviewRepairId, setReviewRepairId] = useState('');
   const [reviewRating, setReviewRating] = useState(5);
@@ -46,6 +47,10 @@ export default function HistoryTab({ userId }: { userId: string }) {
       const revMap: Record<string, Review> = {};
       ((revData as Review[]) || []).forEach(r => { revMap[r.repair_id] = r; });
       setReviews(revMap);
+      // Fetch confirmed RCAs
+      const { data: rcas } = await supabase.from('rca_reports').select('repair_id').eq('admin_confirmed', true).in('repair_id', reps.map(r => r.id));
+      console.debug('[HISTORY_TAB_RCAS]', rcas);
+      setConfirmedRcaIds(new Set((rcas || []).map((r: any) => r.repair_id)));
     }
     setLoading(false);
   }, [userId]);
@@ -53,7 +58,10 @@ export default function HistoryTab({ userId }: { userId: string }) {
   useEffect(() => { fetchData(); }, [fetchData]);
 
   const handleViewRca = async (repairId: string) => {
-    const { data } = await supabase.from('rca_reports').select('*').eq('repair_id', repairId).eq('admin_confirmed', true).maybeSingle();
+    console.debug('[CUSTOMER_VIEW_RCA_HISTORY]', { repairId, userId });
+    const { data, error } = await supabase.from('rca_reports').select('*').eq('repair_id', repairId).eq('admin_confirmed', true).maybeSingle();
+    console.debug('[CUSTOMER_VIEW_RCA_HISTORY_RESULT]', { data, error });
+    if (error) { toast.error('Could not load RCA: ' + error.message); return; }
     if (data) { setRcaReport(data as RcaReport); setRcaOpen(true); }
     else toast.error('No confirmed RCA report found');
   };
@@ -111,7 +119,9 @@ export default function HistoryTab({ userId }: { userId: string }) {
                   <Button size="sm" variant="outline" onClick={() => { setReviewRepairId(r.id); setReviewRating(5); setReviewComment(''); setReviewOpen(true); }} className="border-[#00D084]/30 text-[#00D084] hover:bg-[#00D084]/10 mb-3"><Star className="w-3.5 h-3.5 mr-1.5" />Leave Review</Button>
                 )}
 
-                <button onClick={() => handleViewRca(r.id)} className="text-white/50 text-sm font-medium flex items-center gap-1 hover:text-white"><ClipboardCheck className="w-4 h-4" />View RCA</button>
+                {confirmedRcaIds.has(r.id) && (
+                  <button onClick={() => handleViewRca(r.id)} className="text-white/50 text-sm font-medium flex items-center gap-1 hover:text-white"><ClipboardCheck className="w-4 h-4" />View RCA</button>
+                )}
               </motion.div>
             );
           })}

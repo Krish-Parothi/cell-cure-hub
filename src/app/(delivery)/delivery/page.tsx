@@ -24,7 +24,7 @@ type AssignmentWithJoins = DeliveryAssignment & {
   invoice: any;
 };
 
-const ASSIGNMENT_SELECT = `*, repair:repairs(*, device:devices(*), customer:users!repairs_customer_id_fkey(full_name, phone, address)), invoice:invoices(*)`;
+const ASSIGNMENT_SELECT = `*, repair:repairs(*, device:devices(*), customer:users!repairs_customer_id_fkey(full_name, phone)), invoice:invoices(*)`;
 
 const getArea = (address: string | null | undefined) => {
   if (!address) return 'Other';

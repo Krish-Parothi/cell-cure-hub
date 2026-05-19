@@ -76,11 +76,19 @@ export default function ShopStaffPage() {
   const onAddTechnician = async (data: AddTechForm) => {
     setAddingTech(true);
     try {
-      // Try Edge Function first
-      const { error: fnErr } = await supabase.functions.invoke('add-technician', {
+      // Try Edge Function first with a 4-second timeout to prevent infinite spinning
+      const invokePromise = supabase.functions.invoke('add-technician', {
         body: { ...data, shop_id: shopId },
       });
+
+      const timeoutPromise = new Promise<{ data: null; error: any }>((resolve) =>
+        setTimeout(() => resolve({ data: null, error: new Error('Edge Function timed out') }), 4000)
+      );
+
+      const { error: fnErr } = await Promise.race([invokePromise, timeoutPromise]);
+
       if (fnErr) {
+        console.warn('Edge function failed or timed out, running client-side fallback signup:', fnErr);
         // Fallback: create via signUp
         const { data: signUpData, error: signUpErr } = await supabase.auth.signUp({
           email: data.email,
@@ -92,9 +100,9 @@ export default function ShopStaffPage() {
             id: signUpData.user.id, email: data.email, full_name: data.full_name,
             phone: data.phone, role: 'technician', shop_id: shopId, is_active: true,
           });
-          // Store aadhar hash placeholder (in production, Edge Function hashes this server-side)
+          // Store aadhar number (in production, Edge Function hashes this server-side)
           await supabase.from('technician_details').insert({
-            user_id: signUpData.user.id, aadhar_hash: `HASH_PLACEHOLDER_${data.aadhar.slice(-4)}`, verified: false,
+            user_id: signUpData.user.id, aadhar_number: data.aadhar, verified: false,
           });
         }
       }

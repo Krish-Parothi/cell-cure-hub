@@ -172,9 +172,13 @@ export default function PickupFlow({ assignment, open, onOpenChange, onComplete 
     setOtpSending(true);
     try {
       // Try Edge Function first, fallback to client-side
-      const { error } = await supabase.functions.invoke('send-pickup-otp', {
+      const invokePromise = supabase.functions.invoke('send-pickup-otp', {
         body: { assignment_id: assignment.id, phone: repair.customer?.phone },
       });
+      const timeoutPromise = new Promise<{ data: null; error: any }>((resolve) =>
+        setTimeout(() => resolve({ data: null, error: new Error('Edge Function timed out') }), 4000)
+      );
+      const { error } = await Promise.race([invokePromise, timeoutPromise]);
       if (error) {
         // Fallback: generate OTP client-side and store in DB
         const otp = String(Math.floor(1000 + Math.random() * 9000));

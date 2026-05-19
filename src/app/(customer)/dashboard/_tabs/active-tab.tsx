@@ -22,11 +22,19 @@ export default function ActiveTab({ userId }: { userId: string }) {
   const [rcaReport, setRcaReport] = useState<RcaReport | null>(null);
   const [rcaOpen, setRcaOpen] = useState(false);
   const [approvalLoading, setApprovalLoading] = useState<string | null>(null);
+  const [confirmedRcaIds, setConfirmedRcaIds] = useState<Set<string>>(new Set());
 
   const fetchRepairs = useCallback(async () => {
     setLoading(true);
     const { data } = await supabase.from('repairs').select('*, device:devices(*)').eq('customer_id', userId).not('status', 'in', '("delivered","cancelled","done")').order('created_at', { ascending: false });
-    setRepairs((data as Repair[]) || []);
+    const reps = (data as Repair[]) || [];
+    setRepairs(reps);
+    // Fetch which repairs have admin-confirmed RCAs
+    if (reps.length > 0) {
+      const { data: rcas } = await supabase.from('rca_reports').select('repair_id').eq('admin_confirmed', true).in('repair_id', reps.map(r => r.id));
+      console.debug('[ACTIVE_TAB_RCAS]', rcas);
+      setConfirmedRcaIds(new Set((rcas || []).map((r: any) => r.repair_id)));
+    }
     setLoading(false);
   }, [userId]);
 
@@ -45,7 +53,10 @@ export default function ActiveTab({ userId }: { userId: string }) {
   };
 
   const handleViewRca = async (repairId: string) => {
-    const { data } = await supabase.from('rca_reports').select('*').eq('repair_id', repairId).eq('admin_confirmed', true).maybeSingle();
+    console.debug('[CUSTOMER_VIEW_RCA]', { repairId, userId });
+    const { data, error } = await supabase.from('rca_reports').select('*').eq('repair_id', repairId).eq('admin_confirmed', true).maybeSingle();
+    console.debug('[CUSTOMER_VIEW_RCA_RESULT]', { data, error });
+    if (error) { toast.error('Could not load RCA: ' + error.message); return; }
     if (data) { setRcaReport(data as RcaReport); setRcaOpen(true); }
     else toast.error('No confirmed RCA report found');
   };
@@ -117,7 +128,9 @@ export default function ActiveTab({ userId }: { userId: string }) {
                 <button onClick={() => handleExpand(r.id)} className="text-[#00D084] text-sm font-medium flex items-center gap-1 hover:underline">
                   {expandedId === r.id ? <><ChevronUp className="w-4 h-4" />Hide Timeline</> : <><ChevronDown className="w-4 h-4" />Show Timeline</>}
                 </button>
-                <button onClick={() => handleViewRca(r.id)} className="text-white/50 text-sm font-medium flex items-center gap-1 hover:text-white"><ClipboardCheck className="w-4 h-4" />View RCA</button>
+                {confirmedRcaIds.has(r.id) && (
+                  <button onClick={() => handleViewRca(r.id)} className="text-white/50 text-sm font-medium flex items-center gap-1 hover:text-white"><ClipboardCheck className="w-4 h-4" />View RCA</button>
+                )}
               </div>
 
               {expandedId === r.id && timelines[r.id] && (

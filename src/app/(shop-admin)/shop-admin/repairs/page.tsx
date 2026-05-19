@@ -69,24 +69,39 @@ export default function ShopRepairsPage() {
   useEffect(() => { if ((user?.role === 'shop_admin' || user?.role === 'admin') && shopId) fetchRepairs(); }, [user, shopId, fetchRepairs]);
 
   const openRepairSheet = async (repair: any) => {
+    console.debug('[SHOP_OPEN_REPAIR]', { repairId: repair.id, status: repair.status });
     setSelectedRepair(repair);
     setSheetOpen(true);
     const { data: tl } = await supabase.from('repair_timeline').select('*').eq('repair_id', repair.id).order('created_at', { ascending: true });
     setTimeline(tl || []);
-    const { data: techs } = await supabase.from('users').select('*').eq('role', 'technician').eq('shop_id', shopId).eq('is_active', true);
+    const { data: techs } = await supabase.from('users').select('*').in('role', ['technician', 'shop_admin', 'admin']).eq('shop_id', shopId).eq('is_active', true);
     setTechnicians(techs || []);
-    const { data: dboys } = await supabase.from('users').select('*').eq('role', 'delivery').eq('shop_id', shopId).eq('is_active', true);
+    const { data: dboys } = await supabase.from('users').select('*').in('role', ['delivery', 'shop_admin', 'admin']).eq('shop_id', shopId).eq('is_active', true);
     setDeliveryBoys(dboys || []);
+  };
+
+  const changeStatus = async (newStatus: string) => {
+    if (!selectedRepair) return;
+    console.debug('[SHOP_CHANGE_STATUS]', { repairId: selectedRepair.id, from: selectedRepair.status, to: newStatus, userId: user?.id });
+    setAssigning(true);
+    const { error } = await supabase.from('repairs').update({ status: newStatus, updated_at: new Date().toISOString() }).eq('id', selectedRepair.id);
+    if (error) { console.debug('[SHOP_CHANGE_STATUS_ERROR]', error); toast.error('Failed: ' + error.message); setAssigning(false); return; }
+    await supabase.from('repair_timeline').insert({ repair_id: selectedRepair.id, status: newStatus, note: `Status changed to ${REPAIR_STATUS_LABELS[newStatus as RepairStatus] || newStatus} by shop admin`, updated_by: user?.id });
+    toast.success(`Status → ${REPAIR_STATUS_LABELS[newStatus as RepairStatus] || newStatus}`);
+    setSelectedRepair({ ...selectedRepair, status: newStatus });
+    setAssigning(false); fetchRepairs();
   };
 
   const assignTechnician = async (techId: string) => {
     if (!selectedRepair) return;
+    console.debug('[SHOP_ASSIGN_TECH]', { repairId: selectedRepair.id, techId });
     setAssigning(true);
     const tech = technicians.find(t => t.id === techId);
-    await supabase.from('repairs').update({ technician_id: techId, updated_at: new Date().toISOString() }).eq('id', selectedRepair.id);
+    const { error } = await supabase.from('repairs').update({ technician_id: techId, updated_at: new Date().toISOString() }).eq('id', selectedRepair.id);
+    if (error) { console.debug('[SHOP_ASSIGN_TECH_ERROR]', error); toast.error('Failed: ' + error.message); setAssigning(false); return; }
     await supabase.from('repair_timeline').insert({ repair_id: selectedRepair.id, status: selectedRepair.status, note: `Technician ${tech?.full_name} assigned`, updated_by: user?.id });
     toast.success('Technician assigned');
-    setAssigning(false); fetchRepairs(); setSheetOpen(false);
+    setAssigning(false); fetchRepairs();
   };
 
   const assignDelivery = async (boyId: string) => {
@@ -108,10 +123,16 @@ export default function ShopRepairsPage() {
   };
 
   const confirmRca = async (rca: any) => {
+    console.debug('[SHOP_CONFIRM_RCA]', { rcaId: rca.id, repairId: rca.repair_id });
     setRcaProcessing(true);
-    await supabase.from('rca_reports').update({ admin_confirmed: true }).eq('id', rca.id);
-    await supabase.from('repair_timeline').insert({ repair_id: rca.repair_id, status: 'device_received', note: 'RCA confirmed by shop admin — visible to customer', updated_by: user?.id });
-    toast.success('RCA confirmed'); setRcaModal(null); setRcaProcessing(false); fetchRepairs();
+    try {
+      const { error: updateErr } = await supabase.from('rca_reports').update({ admin_confirmed: true }).eq('id', rca.id);
+      if (updateErr) { console.debug('[SHOP_CONFIRM_RCA_ERROR]', updateErr); toast.error('Failed: ' + updateErr.message); setRcaProcessing(false); return; }
+      const { error: tlErr } = await supabase.from('repair_timeline').insert({ repair_id: rca.repair_id, status: 'device_received', note: 'RCA confirmed by shop admin — visible to customer', updated_by: user?.id });
+      if (tlErr) console.debug('[SHOP_CONFIRM_RCA_TL_ERROR]', tlErr);
+      toast.success('RCA confirmed'); setRcaModal(null); fetchRepairs();
+    } catch (e) { console.debug('[SHOP_CONFIRM_RCA_EXCEPTION]', e); toast.error('Failed'); }
+    setRcaProcessing(false);
   };
 
   const requestRevision = async (rca: any) => {
@@ -194,10 +215,14 @@ export default function ShopRepairsPage() {
                 <div className="bg-white/5 p-3 rounded-lg"><span className="text-white/40 text-xs block">Technician</span><p className="text-white">{selectedRepair.technician?.full_name || 'Unassigned'}</p></div>
               </div>
               <Separator className="bg-white/10" />
+              {/* Status Change */}
+              <div><p className="text-xs text-white/60 mb-2 font-semibold">⚡ Change Status</p>
+                <Select value={selectedRepair.status} onValueChange={(val) => { console.debug('[SHOP_STATUS_SELECT]', val); changeStatus(val); }} disabled={assigning}><SelectTrigger className="bg-white/5 border-white/10 text-white"><SelectValue /></SelectTrigger><SelectContent className="bg-[#1A1A1A] border-white/10">{REPAIR_STATUS_ORDER.map(s => <SelectItem key={s} value={s}>{REPAIR_STATUS_LABELS[s as RepairStatus]}</SelectItem>)}</SelectContent></Select></div>
+              <Separator className="bg-white/10" />
               <div><p className="text-xs text-white/60 mb-2 font-semibold flex items-center gap-1"><Wrench className="w-3 h-3" />Assign Technician</p>
-                <Select onValueChange={assignTechnician} disabled={assigning}><SelectTrigger className="bg-white/5 border-white/10 text-white"><SelectValue placeholder="Select technician..." /></SelectTrigger><SelectContent className="bg-[#1A1A1A] border-white/10">{technicians.map(t => <SelectItem key={t.id} value={t.id}>{t.full_name}</SelectItem>)}</SelectContent></Select></div>
+                <Select onValueChange={assignTechnician} disabled={assigning}><SelectTrigger className="bg-white/5 border-white/10 text-white"><SelectValue placeholder="Select technician..." /></SelectTrigger><SelectContent className="bg-[#1A1A1A] border-white/10">{technicians.map(t => <SelectItem key={t.id} value={t.id}>{t.full_name} {t.role !== 'technician' ? `(${t.role})` : ''}</SelectItem>)}</SelectContent></Select></div>
               <div><p className="text-xs text-white/60 mb-2 font-semibold flex items-center gap-1"><Truck className="w-3 h-3" />Assign Delivery Boy</p>
-                <Select onValueChange={assignDelivery} disabled={assigning}><SelectTrigger className="bg-white/5 border-white/10 text-white"><SelectValue placeholder="Select delivery boy..." /></SelectTrigger><SelectContent className="bg-[#1A1A1A] border-white/10">{deliveryBoys.map(d => <SelectItem key={d.id} value={d.id}>{d.full_name}</SelectItem>)}</SelectContent></Select></div>
+                <Select onValueChange={assignDelivery} disabled={assigning}><SelectTrigger className="bg-white/5 border-white/10 text-white"><SelectValue placeholder="Select delivery boy..." /></SelectTrigger><SelectContent className="bg-[#1A1A1A] border-white/10">{deliveryBoys.map(d => <SelectItem key={d.id} value={d.id}>{d.full_name} {d.role !== 'delivery' ? `(${d.role})` : ''}</SelectItem>)}</SelectContent></Select></div>
               {selectedRepair.status === 'done' && <Button onClick={sendOutForDelivery} disabled={assigning} className="w-full bg-[#00D084] hover:bg-[#00D084]/90 text-black font-semibold">{assigning ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : <Send className="w-4 h-4 mr-2" />}Send Out for Delivery</Button>}
               <Separator className="bg-white/10" />
               <div><p className="text-xs text-white/60 mb-2 font-semibold">Timeline</p>

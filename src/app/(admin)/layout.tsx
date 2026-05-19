@@ -15,7 +15,6 @@ const NAV_ITEMS = [
   { href: '/admin', icon: LayoutDashboard, label: 'Command Center' },
   { href: '/admin/repairs', icon: Wrench, label: 'Repairs' },
   { href: '/admin/staff', icon: Users, label: 'Staff' },
-  { href: '/admin/inventory', icon: Package, label: 'Inventory' },
   { href: '/admin/pricing', icon: DollarSign, label: 'Pricing' },
   { href: '/admin/devices', icon: Smartphone, label: 'Devices' },
   { href: '/admin/analytics', icon: BarChart3, label: 'Analytics' },

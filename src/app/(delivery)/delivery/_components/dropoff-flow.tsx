@@ -53,9 +53,13 @@ export default function DropoffFlow({ assignment, open, onOpenChange, onComplete
   const sendOtp = async () => {
     setOtpSending(true);
     try {
-      const { error } = await supabase.functions.invoke('send-delivery-otp', {
+      const invokePromise = supabase.functions.invoke('send-delivery-otp', {
         body: { assignment_id: assignment.id, phone: repair.customer?.phone },
       });
+      const timeoutPromise = new Promise<{ data: null; error: any }>((resolve) =>
+        setTimeout(() => resolve({ data: null, error: new Error('Edge Function timed out') }), 4000)
+      );
+      const { error } = await Promise.race([invokePromise, timeoutPromise]);
       if (error) {
         const otp = String(Math.floor(1000 + Math.random() * 9000));
         await supabase.from('delivery_assignments').update({ delivery_otp: otp }).eq('id', assignment.id);

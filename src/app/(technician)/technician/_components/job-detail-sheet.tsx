@@ -243,7 +243,9 @@ export default function JobDetailSheet({ repair, open, onOpenChange, onStatusUpd
   const isPendingApproval = repair.approval_status === 'pending';
   const disableStatusChange = isPendingApproval || repair.status === 'done';
 
-  const nextStatus = repair.status === 'device_received' || repair.status === 'diagnostic' ? 'repair_in_progress' 
+  const nextStatus = repair.status === 'booked' || repair.status === 'pickup_scheduled' ? 'device_received'
+                   : repair.status === 'device_received' ? 'diagnostic'
+                   : repair.status === 'diagnostic' ? 'repair_in_progress' 
                    : repair.status === 'repair_in_progress' ? 'qa_testing' : null;
 
   return (
@@ -465,7 +467,7 @@ export default function JobDetailSheet({ repair, open, onOpenChange, onStatusUpd
             <>
               <Separator className="bg-white/10" />
               <div className="pt-2 flex justify-end">
-                <Button onClick={() => onStatusUpdate(repair.id, nextStatus)} className="bg-[#00D084] hover:bg-[#00D084]/90 text-black font-semibold">
+                <Button onClick={() => { console.debug('[TECH_MOVE_STATUS]', { repairId: repair.id, from: repair.status, to: nextStatus }); onStatusUpdate(repair.id, nextStatus); }} className="bg-[#00D084] hover:bg-[#00D084]/90 text-black font-semibold">
                   Move to {REPAIR_STATUS_LABELS[nextStatus as RepairStatus]}
                 </Button>
               </div>

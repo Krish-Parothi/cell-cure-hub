@@ -399,7 +399,7 @@ export interface Attendance {
 export interface TechnicianDetails {
   id: string;
   user_id: string;
-  aadhar_hash: string;
+  aadhar_number: string;
   verified: boolean;
   created_at: string;
 }

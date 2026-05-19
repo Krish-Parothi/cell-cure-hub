@@ -18,10 +18,11 @@ import JobDetailSheet from './_components/job-detail-sheet';
 
 type RepairWithJoins = Repair & {
   device: { brand: string; model_name: string; category: string } | null;
-  customer: { full_name: string; phone: string | null; address: string | null } | null;
+  customer: { full_name: string; phone: string | null } | null;
 };
 
 const KANBAN_COLUMNS = [
+  { label: 'New', statuses: ['booked', 'pickup_scheduled'], color: '#FF5C00' },
   { label: 'Assigned', statuses: ['device_received', 'diagnostic'], color: '#3B82F6' },
   { label: 'In Progress', statuses: ['repair_in_progress'], color: '#F59E0B' },
   { label: 'QA Testing', statuses: ['qa_testing'], color: '#8B5CF6' },
@@ -58,9 +59,9 @@ export default function TechnicianDashboard() {
     setLoading(true);
     const { data, error } = await supabase
       .from('repairs')
-      .select('*, device:devices(*), customer:users!repairs_customer_id_fkey(full_name, phone, address)')
+      .select('*, device:devices(*), customer:users!repairs_customer_id_fkey(full_name, phone)')
       .eq('technician_id', user.id)
-      .in('status', ['device_received', 'diagnostic', 'repair_in_progress', 'qa_testing', 'done'])
+      .in('status', ['booked', 'pickup_scheduled', 'device_received', 'diagnostic', 'repair_in_progress', 'qa_testing', 'done'])
       .order('created_at', { ascending: false });
       
     if (error) { toast.error('Failed to fetch repairs'); } 
@@ -69,7 +70,7 @@ export default function TechnicianDashboard() {
   }, [user]);
 
   useEffect(() => {
-    if (user && user.role === 'technician') {
+    if (user && (user.role === 'technician' || user.role === 'admin' || user.role === 'shop_admin')) {
       fetchRepairs();
       
       // Realtime subscription
@@ -90,8 +91,9 @@ export default function TechnicianDashboard() {
   }, [user, fetchRepairs]);
 
   const updateStatus = async (repairId: string, newStatus: string) => {
+    console.debug('[TECH_UPDATE_STATUS]', { repairId, newStatus, userId: user?.id });
     const { error } = await supabase.from('repairs').update({ status: newStatus }).eq('id', repairId);
-    if (error) { toast.error('Failed to update status'); return; }
+    if (error) { console.debug('[TECH_UPDATE_STATUS_ERROR]', error); toast.error('Failed to update status: ' + error.message); return; }
     
     await supabase.from('repair_timeline').insert({
       repair_id: repairId,
@@ -109,7 +111,7 @@ export default function TechnicianDashboard() {
   const completedToday = repairs.filter(r => r.status === 'done' && new Date(r.updated_at).toDateString() === new Date().toDateString()).length;
 
   return (
-    <RoleGuard allowedRoles={['technician', 'admin']}>
+    <RoleGuard allowedRoles={['technician', 'admin', 'shop_admin']}>
       <div className="min-h-screen bg-[#0A0A0A] flex flex-col">
         <Navbar />
         

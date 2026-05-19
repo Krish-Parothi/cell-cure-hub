@@ -1179,6 +1179,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { Navbar } from '@/components/navbar';
+import { ScrollyIphone } from '@/components/scrolly-iphone';
 import {
   Smartphone,
   Monitor,
@@ -2228,15 +2229,11 @@ function UpdatedFooter() {
 ───────────────────────────────────────── */
 export default function Home() {
   return (
-    <main className="bg-white text-[#1A1A1A]">
+    <main className="bg-[#0A0A0A] text-white">
       <Navbar />
-      <HeroSection />
+      <ScrollyIphone />
       <ServicesGrid />
       <HowItWorks />
-
-      {/* ── SCROLL ANIMATION SECTION ── */}
-      <PhoneTeardownSection />
-
       <LiveTrackerTeaser />
       <WhyChooseUs />
       <Testimonials />

@@ -2529,7 +2529,7 @@ export default function IphoneScroll() {
     const lenis = new Lenis({
       duration: 1.2,
       smoothWheel: true,
-      smoothTouch: true,
+      // smoothTouch: true,
       wheelMultiplier: 1,
       touchMultiplier: 1.1,
       lerp: 0.12,

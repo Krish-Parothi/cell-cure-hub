@@ -12,7 +12,7 @@ import { toast } from 'sonner';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/lib/auth-context';
 import type { DeliveryAssignment, Invoice } from '@/lib/types';
-import { Package, CheckCircle, Loader2, Hash, Phone, MapPin, Smartphone, CreditCard, Banknote, IndianRupee } from 'lucide-react';
+import { Package, CheckCircle, Loader2, Hash, Phone, MapPin, Smartphone, CreditCard, Banknote, IndianRupee, Truck } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 
 interface DropoffFlowProps {
@@ -47,7 +47,8 @@ export default function DropoffFlow({ assignment, open, onOpenChange, onComplete
 
   if (!assignment) return null;
   const repair = assignment.repair;
-  const invoice: Invoice | null = assignment.invoice;
+  const invoicesArray = assignment.repair?.invoices || [];
+  const invoice: Invoice | null = invoicesArray.length > 0 ? invoicesArray[0] : null;
   const needsPayment = invoice && invoice.payment_status === 'pending';
 
   const sendOtp = async () => {
@@ -126,6 +127,17 @@ export default function DropoffFlow({ assignment, open, onOpenChange, onComplete
     ? `upi://pay?pa=${invoice.merchant_upi_id || 'cellcurehub@upi'}&pn=CellCureHub&am=${invoice.total}&tn=Repair-${repair.id.split('-')[0]}`
     : '';
 
+  const markOutForDelivery = async () => {
+    try {
+      await supabase.from('delivery_assignments').update({ status: 'out_for_delivery' }).eq('id', assignment.id);
+      await supabase.from('repairs').update({ status: 'out_for_delivery' }).eq('id', repair.id);
+      toast.success('Marked as Out for Delivery');
+      onComplete(); // Refresh parent view
+    } catch {
+      toast.error('Failed to update status');
+    }
+  };
+
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="right" className="max-w-xl w-full bg-[#0A0A0A] border-l border-white/10 overflow-y-auto">
@@ -162,6 +174,18 @@ export default function DropoffFlow({ assignment, open, onOpenChange, onComplete
         </div>
 
         <div className="space-y-6 pb-12">
+          {/* STEP 0: Out for Delivery */}
+          {assignment.status !== 'out_for_delivery' && assignment.status !== 'delivered' && (
+            <div className="bg-white/5 rounded-xl p-4 border border-white/10 mb-4">
+              <h3 className="text-sm font-semibold text-white/80 mb-3 flex items-center gap-2">
+                <Truck className="w-4 h-4 text-[#00D084]" /> Status Update
+              </h3>
+              <Button onClick={markOutForDelivery} className="w-full bg-white/10 hover:bg-white/20 text-white">
+                Mark as Out for Delivery
+              </Button>
+            </div>
+          )}
+
           {/* STEP 1: OTP Handover */}
           {!otpVerified && (
             <section className="space-y-4">

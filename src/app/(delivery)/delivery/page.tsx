@@ -24,7 +24,7 @@ type AssignmentWithJoins = DeliveryAssignment & {
   invoice: any;
 };
 
-const ASSIGNMENT_SELECT = `*, repair:repairs(*, device:devices(*), customer:users!repairs_customer_id_fkey(full_name, phone)), invoice:invoices(*)`;
+const ASSIGNMENT_SELECT = `*, repair:repairs(*, device:devices(*), customer:users!repairs_customer_id_fkey(full_name, phone), invoices(*))`;
 
 const getArea = (address: string | null | undefined) => {
   if (!address) return 'Other';
@@ -54,7 +54,8 @@ export default function DeliveryDashboard() {
         .select(ASSIGNMENT_SELECT)
         .eq('delivery_boy_id', user.id)
         .eq('scheduled_date', today)
-        .not('status', 'in', '("delivered","returned")')
+        .neq('status', 'delivered')
+        .neq('status', 'returned')
         .order('created_at', { ascending: true }),
       supabase
         .from('delivery_assignments')
@@ -74,7 +75,9 @@ export default function DeliveryDashboard() {
   }, [user]);
 
   useEffect(() => {
-    if (user?.role === 'delivery') fetchJobs();
+    if (user && (user.role === 'delivery' || user.role === 'admin' || user.role === 'shop_admin')) {
+      fetchJobs();
+    }
   }, [user, fetchJobs]);
 
   const openJob = (job: AssignmentWithJoins) => {
@@ -116,7 +119,7 @@ export default function DeliveryDashboard() {
   ];
 
   return (
-    <RoleGuard allowedRoles={['delivery', 'admin']}>
+    <RoleGuard allowedRoles={['delivery', 'admin', 'shop_admin']}>
       <div className="min-h-screen bg-[#0A0A0A] flex flex-col">
         <Navbar />
         <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">

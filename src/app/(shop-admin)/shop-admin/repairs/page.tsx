@@ -108,7 +108,20 @@ export default function ShopRepairsPage() {
     if (!selectedRepair) return;
     setAssigning(true);
     const today = new Date().toISOString().split('T')[0];
-    await supabase.from('delivery_assignments').insert({ repair_id: selectedRepair.id, delivery_boy_id: boyId, shop_id: shopId, job_type: 'dropoff', status: 'assigned', scheduled_date: today });
+    
+    // Clear any existing dropoff assignment for this device
+    await supabase.from('delivery_assignments')
+      .delete()
+      .eq('repair_id', selectedRepair.id)
+      .eq('job_type', 'dropoff');
+
+    const { error } = await supabase.from('delivery_assignments').insert({ 
+      repair_id: selectedRepair.id, delivery_boy_id: boyId, shop_id: shopId, 
+      job_type: 'dropoff', status: 'assigned', scheduled_date: today 
+    });
+    
+    if (error) { toast.error('Failed: ' + error.message); setAssigning(false); return; }
+    
     toast.success('Delivery boy assigned');
     setAssigning(false); fetchRepairs();
   };

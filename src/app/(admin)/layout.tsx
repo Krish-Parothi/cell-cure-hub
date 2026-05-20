@@ -8,7 +8,7 @@ import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/footer';
 import {
   LayoutDashboard, Wrench, Users, Package, DollarSign, Smartphone,
-  BarChart3, UserCircle, Store, Menu, X,
+  BarChart3, UserCircle, Store, Menu, X, Truck, Activity
 } from 'lucide-react';
 
 const NAV_ITEMS = [
@@ -20,6 +20,8 @@ const NAV_ITEMS = [
   { href: '/admin/analytics', icon: BarChart3, label: 'Analytics' },
   { href: '/admin/customers', icon: UserCircle, label: 'Customers' },
   { href: '/admin/shops', icon: Store, label: 'Shops' },
+  { href: '/technician', icon: Activity, label: 'Tech Dashboard' },
+  { href: '/delivery', icon: Truck, label: 'Delivery Dashboard' },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

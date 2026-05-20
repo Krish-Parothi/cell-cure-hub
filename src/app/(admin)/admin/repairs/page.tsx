@@ -153,6 +153,13 @@ export default function RepairsPage() {
     console.debug('[ADMIN_ASSIGN_DELIVERY]', { repairId: selectedRepair.id, boyId, userId: user?.id });
     setAssigning(true);
     const today = new Date().toISOString().split('T')[0];
+    
+    // Clear any existing dropoff assignment for this device
+    await supabase.from('delivery_assignments')
+      .delete()
+      .eq('repair_id', selectedRepair.id)
+      .eq('job_type', 'dropoff');
+
     const { error } = await supabase.from('delivery_assignments').insert({
       repair_id: selectedRepair.id, delivery_boy_id: boyId, shop_id: selectedRepair.shop_id,
       job_type: 'dropoff', status: 'assigned', scheduled_date: today,

@@ -507,12 +507,10 @@ import { Phone, Search, ChevronRight, User, LogOut } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/lib/auth-context';
 
-const COMING_SOON = '/coming-soon';
-
 const navLinks = [
   { label: 'Services',     href: '/#services' },
   { label: 'How It Works', href: '/#how-it-works' },
-  { label: 'Track Repair', href: COMING_SOON },
+  { label: 'Track Repair', href: '/track' },
   { label: 'E-Waste',      href: '/#go-green' },
 ];
 
@@ -567,8 +565,9 @@ export function Navbar() {
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center gap-3">
+            {/* ✅ /track */}
             <Link
-              href={COMING_SOON}
+              href="/track"
               className="flex items-center gap-1.5 text-sm font-medium text-[#1A1A1A]/60 hover:text-[#FF5C00] transition-colors"
             >
               <Search className="w-4 h-4" />
@@ -577,8 +576,9 @@ export function Navbar() {
 
             {user ? (
               <>
+                {/* ✅ /dashboard */}
                 <Link
-                  href={COMING_SOON}
+                  href="/dashboard"
                   className="flex items-center gap-2 text-sm font-medium text-[#1A1A1A]/70 hover:text-[#1A1A1A] transition-colors px-3 py-2 rounded-xl hover:bg-[#F7F7F5]"
                 >
                   {user.avatar_url ? (
@@ -598,8 +598,9 @@ export function Navbar() {
                 </button>
               </>
             ) : (
+              /* ✅ /book */
               <Link
-                href={COMING_SOON}
+                href="/book"
                 className="bg-[#FF5C00] hover:bg-[#e05200] text-white px-5 py-2.5 rounded-xl text-sm font-bold transition-colors shadow-[0_4px_14px_rgba(255,92,0,0.25)] hover:shadow-[0_4px_20px_rgba(255,92,0,0.4)]"
               >
                 Book Repair
@@ -645,8 +646,9 @@ export function Navbar() {
               <div className="pt-3 space-y-2 border-t border-[#E8E4DF] mt-2">
                 {user ? (
                   <>
+                    {/* ✅ /dashboard */}
                     <Link
-                      href={COMING_SOON}
+                      href="/dashboard"
                       onClick={() => setMobileOpen(false)}
                       className="block w-full text-center py-3 rounded-xl border border-[#E8E4DF] text-[#1A1A1A]/70 hover:text-[#1A1A1A] hover:border-[#FF5C00]/30 transition-colors text-sm font-medium"
                     >
@@ -661,15 +663,17 @@ export function Navbar() {
                   </>
                 ) : (
                   <>
+                    {/* ✅ /track */}
                     <Link
-                      href={COMING_SOON}
+                      href="/track"
                       onClick={() => setMobileOpen(false)}
                       className="block w-full text-center py-3 rounded-xl border border-[#E8E4DF] text-[#1A1A1A]/70 hover:border-[#FF5C00]/30 hover:text-[#FF5C00] transition-colors text-sm font-medium"
                     >
                       Track Repair
                     </Link>
+                    {/* ✅ /book */}
                     <Link
-                      href={COMING_SOON}
+                      href="/book"
                       onClick={() => setMobileOpen(false)}
                       className="block w-full text-center py-3 rounded-xl bg-[#FF5C00] hover:bg-[#e05200] text-white font-bold transition-colors text-sm shadow-[0_4px_14px_rgba(255,92,0,0.25)]"
                     >

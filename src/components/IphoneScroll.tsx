@@ -3624,7 +3624,6 @@
 //     </div>
 //   );
 // }
-
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
@@ -3638,7 +3637,7 @@ import {
 import Lenis from "lenis";
 
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
-const TOTAL_FRAMES = 240;
+const TOTAL_FRAMES = 480;
 const FRAME_PREFIX = "/iphone-wow-images/ezgif-frame-";
 
 function getFramePath(i: number) {
@@ -4006,13 +4005,13 @@ export default function IphoneScroll() {
           }}
         />
 
-        {/* Canvas — scales up + fades in from dark */}
+        {/* Canvas — pure opacity fade, no scale/blur */}
         <motion.canvas
           ref={canvasRef}
           className="absolute inset-0"
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={revealed ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.96 }}
-          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: revealed ? 1 : 0 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
         />
 
         {/* Text overlays — mount only after revealed so hooks are stable */}

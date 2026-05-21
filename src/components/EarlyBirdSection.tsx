@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-function EarlyBirdSection() {
+export default function EarlyBirdSection() {
   const [form, setForm] = useState({ name: "", phone: "", address: "" });
   const [submitted, setSubmitted] = useState(false);
   const [entries, setEntries] = useState<{name:string,phone:string,address:string,time:string}[]>([]);

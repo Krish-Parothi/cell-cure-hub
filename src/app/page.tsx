@@ -2805,55 +2805,418 @@
 //   );
 // }
 
-import IphoneScroll from "@/components/IphoneScroll";
+// import IphoneScroll from "@/components/IphoneScroll";
 
+// export default function Home() {
+//   return (
+//     <main style={{ background: "#050505" }}>
+//       <IphoneScroll />
+
+//       {/* Below-the-fold section */}
+//       <section
+//         className="min-h-screen flex flex-col items-center justify-center text-center px-6 py-32"
+//         style={{ background: "#050505" }}
+//       >
+//         <p
+//           className="text-xs tracking-[0.4em] uppercase text-white/25 mb-6"
+//           style={{ fontFamily: "'SF Pro Text', sans-serif" }}
+//         >
+//           Starting at $1,299
+//         </p>
+//         <h3
+//           className="text-4xl md:text-6xl font-semibold text-white/85 tracking-tight leading-tight max-w-2xl"
+//           style={{ fontFamily: "'SF Pro Display', sans-serif" }}
+//         >
+//           Everything changes.<br />Again.
+//         </h3>
+//         <p
+//           className="mt-6 text-white/40 text-lg max-w-md leading-relaxed font-light"
+//           style={{ fontFamily: "'SF Pro Text', sans-serif" }}
+//         >
+//           iPhone 17 Pro Max. Available in Titanium Black, Desert Titanium,
+//           Natural Titanium, and White Titanium.
+//         </p>
+//         <div className="mt-10 flex flex-wrap gap-4 justify-center">
+//           <button
+//             className="px-8 py-3 rounded-full text-sm font-medium text-black"
+//             style={{ background: "rgba(255,255,255,0.9)" }}
+//           >
+//             Buy
+//           </button>
+//           <button
+//             className="px-8 py-3 rounded-full text-sm font-medium text-white/80"
+//             style={{
+//               border: "1px solid rgba(255,255,255,0.15)",
+//               background: "transparent",
+//             }}
+//           >
+//             Learn more
+//           </button>
+//         </div>
+//       </section>
+//     </main>
+//   );
+// }
+
+import IphoneScroll from "@/components/IphoneScroll";
+import ServiceCard from "@/components/ServiceCard";
+
+// ─── SERVICES DATA ────────────────────────────────────────────────────────────
+const SERVICES = [
+  {
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <rect x="5" y="2" width="14" height="20" rx="3" stroke="#FF6B35" strokeWidth="1.5"/>
+        <circle cx="12" cy="18" r="1" fill="#FF6B35"/>
+        <line x1="9" y1="6" x2="15" y2="6" stroke="#FF6B35" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+    title: "Screen Repair",
+    desc: "Cracked, shattered, or unresponsive? OEM-quality replacement in under 60 minutes.",
+    time: "~45 min",
+  },
+  {
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M7 4h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" stroke="#FF6B35" strokeWidth="1.5"/>
+        <path d="M9 4V3h6v1" stroke="#FF6B35" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M9 11h6M9 14h4" stroke="#FF6B35" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+    title: "Battery Swap",
+    desc: "Genuine cells, zero compromise. Restore your battery life to factory spec.",
+    time: "~30 min",
+  },
+  {
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M12 3C7.03 3 3 7.03 3 12s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9z" stroke="#FF6B35" strokeWidth="1.5"/>
+        <path d="M12 8v4l3 3" stroke="#FF6B35" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M8 3.5C6.5 5 5.5 6.9 5.5 9" stroke="#FF6B35" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+    title: "Water Damage",
+    desc: "Advanced ultrasonic cleaning and micro-soldering. If it can be saved, we'll save it.",
+    time: "24–48 hrs",
+  },
+  {
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <rect x="2" y="4" width="20" height="14" rx="2" stroke="#FF6B35" strokeWidth="1.5"/>
+        <path d="M8 20h8M12 18v2" stroke="#FF6B35" strokeWidth="1.5" strokeLinecap="round"/>
+        <path d="M6 9h12M6 12h8" stroke="#FF6B35" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+    title: "Laptop Repair",
+    desc: "From hinges to motherboards — full-spectrum laptop diagnostics and repair.",
+    time: "Same day",
+  },
+  {
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18" stroke="#FF6B35" strokeWidth="1.5" strokeLinecap="round"/>
+      </svg>
+    ),
+    title: "Data Recovery",
+    desc: "Lost photos, contacts, or files? Our recovery specialists retrieve what matters most.",
+    time: "1–3 days",
+  },
+  {
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="9" stroke="#FF6B35" strokeWidth="1.5"/>
+        <path d="M12 8v4" stroke="#FF6B35" strokeWidth="1.5" strokeLinecap="round"/>
+        <circle cx="12" cy="15.5" r="0.75" fill="#FF6B35"/>
+      </svg>
+    ),
+    title: "Free Diagnosis",
+    desc: "Not sure what&apos;s wrong? Bring it in — full diagnosis is always on us.",
+    time: "Free",
+  },
+];
+
+// ─── STATS ────────────────────────────────────────────────────────────────────
+const STATS = [
+  { value: "10,000+", label: "Devices Repaired" },
+  { value: "4.9★",    label: "Average Rating" },
+  { value: "98%",     label: "Success Rate" },
+  { value: "< 1 hr",  label: "Avg. Turnaround" },
+];
+
+// ─── PAGE ─────────────────────────────────────────────────────────────────────
 export default function Home() {
   return (
     <main style={{ background: "#050505" }}>
+
+      {/* ── SCROLL ANIMATION ─────────────────────────────────────────────── */}
       <IphoneScroll />
 
-      {/* Below-the-fold section */}
+      {/* ── SERVICES ─────────────────────────────────────────────────────── */}
       <section
-        className="min-h-screen flex flex-col items-center justify-center text-center px-6 py-32"
-        style={{ background: "#050505" }}
+        style={{ background: "#050505", borderTop: "1px solid rgba(255,255,255,0.06)" }}
+        className="px-6 py-28 md:py-36"
       >
-        <p
-          className="text-xs tracking-[0.4em] uppercase text-white/25 mb-6"
-          style={{ fontFamily: "'SF Pro Text', sans-serif" }}
-        >
-          Starting at $1,299
-        </p>
-        <h3
-          className="text-4xl md:text-6xl font-semibold text-white/85 tracking-tight leading-tight max-w-2xl"
-          style={{ fontFamily: "'SF Pro Display', sans-serif" }}
-        >
-          Everything changes.<br />Again.
-        </h3>
-        <p
-          className="mt-6 text-white/40 text-lg max-w-md leading-relaxed font-light"
-          style={{ fontFamily: "'SF Pro Text', sans-serif" }}
-        >
-          iPhone 17 Pro Max. Available in Titanium Black, Desert Titanium,
-          Natural Titanium, and White Titanium.
-        </p>
-        <div className="mt-10 flex flex-wrap gap-4 justify-center">
-          <button
-            className="px-8 py-3 rounded-full text-sm font-medium text-black"
-            style={{ background: "rgba(255,255,255,0.9)" }}
-          >
-            Buy
-          </button>
-          <button
-            className="px-8 py-3 rounded-full text-sm font-medium text-white/80"
-            style={{
-              border: "1px solid rgba(255,255,255,0.15)",
-              background: "transparent",
-            }}
-          >
-            Learn more
-          </button>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-20">
+            <p
+              className="text-xs tracking-[0.4em] uppercase mb-4"
+              style={{ fontFamily: "'SF Pro Text', sans-serif", color: "#FF6B35" }}
+            >
+              What We Fix
+            </p>
+            <h2
+              className="text-4xl md:text-6xl font-bold text-white tracking-tight leading-tight"
+              style={{ fontFamily: "'SF Pro Display', sans-serif" }}
+            >
+              Every device.
+              <br />
+              <span style={{ color: "rgba(255,255,255,0.3)" }}>Every problem.</span>
+            </h2>
+            <p
+              className="mt-6 text-base md:text-lg font-light max-w-xl mx-auto"
+              style={{ fontFamily: "'SF Pro Text', sans-serif", color: "rgba(255,255,255,0.4)" }}
+            >
+              Phones, tablets, laptops, and more. No fix means no fee — ever.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {SERVICES.map((s, i) => (
+              <ServiceCard key={i} icon={s.icon} title={s.title} desc={s.desc} time={s.time} />
+            ))}
+          </div>
         </div>
       </section>
+
+      {/* ── ABOUT US ─────────────────────────────────────────────────────── */}
+      <section
+        style={{ background: "#080808", borderTop: "1px solid rgba(255,255,255,0.06)" }}
+        className="px-6 py-28 md:py-40"
+      >
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+            {/* Left copy — introduction only, no CTAs */}
+            <div>
+              <p
+                className="text-xs tracking-[0.4em] uppercase mb-5"
+                style={{ fontFamily: "'SF Pro Text', sans-serif", color: "#FF6B35" }}
+              >
+                About Us
+              </p>
+              <h2
+                className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight mb-8"
+                style={{ fontFamily: "'SF Pro Display', sans-serif" }}
+              >
+                Born from a love
+                <br />
+                <span style={{ color: "rgba(255,255,255,0.3)" }}>of taking things apart.</span>
+              </h2>
+              <div className="space-y-5">
+                <p
+                  className="text-base leading-relaxed"
+                  style={{ fontFamily: "'SF Pro Text', sans-serif", color: "rgba(255,255,255,0.5)" }}
+                >
+                  CellCureHub started with a single bench, a soldering iron, and a belief that people deserve honest, high-quality repairs — not upsells and runarounds.
+                </p>
+                <p
+                  className="text-base leading-relaxed"
+                  style={{ fontFamily: "'SF Pro Text', sans-serif", color: "rgba(255,255,255,0.5)" }}
+                >
+                  We repair phones, tablets, and laptops across Pune. Our technicians are certified and meticulous — every repair comes with a 90-day warranty, no questions asked.
+                </p>
+                <p
+                  className="text-base leading-relaxed"
+                  style={{ fontFamily: "'SF Pro Text', sans-serif", color: "rgba(255,255,255,0.5)" }}
+                >
+                  We don&apos;t just fix devices. We fix trust.
+                </p>
+              </div>
+            </div>
+
+            {/* Right stats */}
+            <div className="grid grid-cols-2 gap-4">
+              {STATS.map((stat, i) => (
+                <div
+                  key={i}
+                  className="rounded-2xl p-7 flex flex-col justify-between"
+                  style={{
+                    background: i % 2 === 0 ? "rgba(255,107,53,0.06)" : "rgba(255,255,255,0.03)",
+                    border: i % 2 === 0 ? "1px solid rgba(255,107,53,0.15)" : "1px solid rgba(255,255,255,0.06)",
+                    minHeight: "160px",
+                  }}
+                >
+                  <span
+                    className="text-3xl md:text-4xl font-bold"
+                    style={{
+                      fontFamily: "'SF Pro Display', sans-serif",
+                      color: i % 2 === 0 ? "#FF6B35" : "rgba(255,255,255,0.85)",
+                    }}
+                  >
+                    {stat.value}
+                  </span>
+                  <span
+                    className="text-sm"
+                    style={{ fontFamily: "'SF Pro Text', sans-serif", color: "rgba(255,255,255,0.35)" }}
+                  >
+                    {stat.label}
+                  </span>
+                </div>
+              ))}
+
+              {/* Warranty badge */}
+              <div
+                className="col-span-2 rounded-2xl p-6 flex items-center gap-4"
+                style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)" }}
+              >
+                <div
+                  className="w-10 h-10 rounded-xl flex-shrink-0 flex items-center justify-center"
+                  style={{ background: "rgba(255,107,53,0.12)", border: "1px solid rgba(255,107,53,0.25)" }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                    <path d="M9 1l2 5h5l-4 3 1.5 5L9 11 4.5 14 6 9 2 6h5z" fill="#FF6B35"/>
+                  </svg>
+                </div>
+                <div>
+                  <p
+                    className="text-sm font-medium text-white"
+                    style={{ fontFamily: "'SF Pro Text', sans-serif" }}
+                  >
+                    90-day repair warranty — on every single job
+                  </p>
+                  <p
+                    className="text-xs mt-0.5"
+                    style={{ fontFamily: "'SF Pro Text', sans-serif", color: "rgba(255,255,255,0.3)" }}
+                  >
+                    No fix? No charge. That&apos;s our promise.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── COMING SOON ──────────────────────────────────────────────────── */}
+      <section
+        className="relative px-6 py-32 md:py-44 overflow-hidden"
+        style={{ background: "#050505", borderTop: "1px solid rgba(255,255,255,0.06)" }}
+      >
+        {/* Glow orbs */}
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+          style={{ width: "800px", height: "800px", background: "radial-gradient(circle, rgba(255,107,53,0.06) 0%, transparent 65%)" }}
+        />
+        <div
+          className="absolute top-0 right-0 pointer-events-none"
+          style={{ width: "400px", height: "400px", background: "radial-gradient(circle, rgba(255,107,53,0.04) 0%, transparent 70%)" }}
+        />
+
+        <div className="relative max-w-3xl mx-auto text-center">
+          {/* Pill badge */}
+          <div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-10"
+            style={{ background: "rgba(255,107,53,0.08)", border: "1px solid rgba(255,107,53,0.2)" }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#FF6B35" }} />
+            <span
+              className="text-xs tracking-[0.3em] uppercase font-medium"
+              style={{ fontFamily: "'SF Pro Text', sans-serif", color: "#FF6B35" }}
+            >
+              Coming Soon
+            </span>
+          </div>
+
+          <h2
+            className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-none mb-6"
+            style={{ fontFamily: "'SF Pro Display', sans-serif" }}
+          >
+            Something big
+            <br />
+            <span
+              style={{
+                background: "linear-gradient(135deg, #FF6B35 0%, #FF9A6C 50%, #FF6B35 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
+            >
+              is coming.
+            </span>
+          </h2>
+
+          <p
+            className="text-base md:text-xl font-light leading-relaxed mb-12 max-w-xl mx-auto"
+            style={{ fontFamily: "'SF Pro Text', sans-serif", color: "rgba(255,255,255,0.4)" }}
+          >
+            We&apos;re building the future of device repair — online booking, real-time repair tracking, and doorstep pickup. Stay tuned.
+          </p>
+
+          {/* Feature pills — no email form, just teasing what's coming */}
+          <div className="flex flex-wrap justify-center gap-3">
+            {["Online Booking", "Doorstep Pickup", "Live Repair Tracking", "Instant Quotes", "Warranty Portal"].map((f) => (
+              <span
+                key={f}
+                className="px-4 py-2 rounded-full text-sm"
+                style={{
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  color: "rgba(255,255,255,0.45)",
+                  fontFamily: "'SF Pro Text', sans-serif",
+                }}
+              >
+                {f}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FOOTER ───────────────────────────────────────────────────────── */}
+      <footer
+        style={{ background: "#050505", borderTop: "1px solid rgba(255,255,255,0.06)" }}
+        className="px-6 py-12"
+      >
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+          {/* Brand */}
+          <div className="flex items-center gap-2.5">
+            <div
+              className="w-7 h-7 rounded-lg flex items-center justify-center"
+              style={{ background: "rgba(255,107,53,0.15)", border: "1px solid rgba(255,107,53,0.3)" }}
+            >
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M6 1L7.5 4.5H11L8.25 6.75L9.5 10.5L6 8.25L2.5 10.5L3.75 6.75L1 4.5H4.5L6 1Z" fill="#FF6B35" />
+              </svg>
+            </div>
+            <span
+              className="text-sm font-semibold"
+              style={{ fontFamily: "'SF Pro Display', sans-serif", color: "rgba(255,255,255,0.7)" }}
+            >
+              CellCureHub
+            </span>
+          </div>
+
+          <p
+            className="text-xs text-center"
+            style={{ fontFamily: "'SF Pro Text', sans-serif", color: "rgba(255,255,255,0.2)" }}
+          >
+            © 2025 CellCureHub, Pune. All rights reserved.
+          </p>
+
+          <div className="flex items-center gap-6">
+            {["Privacy", "Terms", "Contact"].map((link) => (
+              <a
+                key={link}
+                href="#"
+                className="text-xs hover:text-white transition-colors duration-200"
+                style={{ fontFamily: "'SF Pro Text', sans-serif", color: "rgba(255,255,255,0.3)" }}
+              >
+                {link}
+              </a>
+            ))}
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }

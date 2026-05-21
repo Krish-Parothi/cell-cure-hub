@@ -3818,49 +3818,99 @@ export default function IphoneScroll() {
     }
   }, []);
 
-  // Sub-frame blending for buttery smooth animation
-  const drawFrame = useCallback((displayFrame: number) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+  // // Sub-frame blending for buttery smooth animation
+  // const drawFrame = useCallback((displayFrame: number) => {
+  //   const canvas = canvasRef.current;
+  //   if (!canvas) return;
+  //   const ctx = canvas.getContext("2d");
+  //   if (!ctx) return;
 
-    const loFrame = Math.floor(displayFrame);
-    const hiFrame = Math.min(TOTAL_FRAMES - 1, loFrame + 1);
-    const blend = displayFrame - loFrame;
+  //   const loFrame = Math.floor(displayFrame);
+  //   const hiFrame = Math.min(TOTAL_FRAMES - 1, loFrame + 1);
+  //   const blend = displayFrame - loFrame;
 
-    const imgLo = imagesRef.current[loFrame];
-    const imgHi = imagesRef.current[hiFrame];
+  //   const imgLo = imagesRef.current[loFrame];
+  //   const imgHi = imagesRef.current[hiFrame];
 
-    if (!imgLo?.complete || !imgLo.naturalWidth) return;
+  //   if (!imgLo?.complete || !imgLo.naturalWidth) return;
 
-    const cw = canvas.offsetWidth;
-    const ch = canvas.offsetHeight;
+  //   const cw = canvas.offsetWidth;
+  //   const ch = canvas.offsetHeight;
 
-    ctx.save();
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.restore();
+  //   ctx.save();
+  //   ctx.setTransform(1, 0, 0, 1, 0, 0);
+  //   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //   ctx.restore();
 
-    const scale = Math.min(cw / imgLo.naturalWidth, ch / imgLo.naturalHeight) * 0.94;
-    const dw = imgLo.naturalWidth * scale;
-    const dh = imgLo.naturalHeight * scale;
-    const dx = (cw - dw) / 2;
-    const dy = (ch - dh) / 2;
+  //   const scale = Math.min(cw / imgLo.naturalWidth, ch / imgLo.naturalHeight) * 0.94;
+  //   const dw = imgLo.naturalWidth * scale;
+  //   const dh = imgLo.naturalHeight * scale;
+  //   const dx = (cw - dw) / 2;
+  //   const dy = (ch - dh) / 2;
 
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = "high";
+  //   ctx.imageSmoothingEnabled = true;
+  //   ctx.imageSmoothingQuality = "high";
 
-    ctx.globalAlpha = 1;
-    ctx.drawImage(imgLo, dx, dy, dw, dh);
+  //   ctx.globalAlpha = 1;
+  //   ctx.drawImage(imgLo, dx, dy, dw, dh);
 
-    if (blend > 0 && imgHi?.complete && imgHi.naturalWidth) {
-      ctx.globalAlpha = blend;
-      ctx.drawImage(imgHi, dx, dy, dw, dh);
-    }
+  //   if (blend > 0 && imgHi?.complete && imgHi.naturalWidth) {
+  //     ctx.globalAlpha = blend;
+  //     ctx.drawImage(imgHi, dx, dy, dw, dh);
+  //   }
 
-    ctx.globalAlpha = 1;
-  }, []);
+  //   ctx.globalAlpha = 1;
+  // }, []);
+
+// Replace your existing drawFrame function with this:
+
+const drawFrame = useCallback((displayFrame: number) => {
+  const canvas = canvasRef.current;
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  if (!ctx) return;
+
+  const loFrame = Math.floor(displayFrame);
+  const hiFrame = Math.min(TOTAL_FRAMES - 1, loFrame + 1);
+  const blend = displayFrame - loFrame;
+
+  const imgLo = imagesRef.current[loFrame];
+  const imgHi = imagesRef.current[hiFrame];
+
+  if (!imgLo?.complete || !imgLo.naturalWidth) return;
+
+  const cw = canvas.offsetWidth;
+  const ch = canvas.offsetHeight;
+
+  ctx.save();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.restore();
+
+  // ── COVER MODE (no black bars) ──────────────────────────────────────
+  // Scale so the image fills the entire canvas, cropping if needed
+  const imgW = imgLo.naturalWidth;
+  const imgH = imgLo.naturalHeight;
+
+  const scale = Math.max(cw / imgW, ch / imgH); // <-- max instead of min
+  const dw = imgW * scale;
+  const dh = imgH * scale;
+  const dx = (cw - dw) / 2;   // center-crop horizontally
+  const dy = (ch - dh) / 2;   // center-crop vertically
+
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
+
+  ctx.globalAlpha = 1;
+  ctx.drawImage(imgLo, dx, dy, dw, dh);
+
+  if (blend > 0 && imgHi?.complete && imgHi.naturalWidth) {
+    ctx.globalAlpha = blend;
+    ctx.drawImage(imgHi, dx, dy, dw, dh);
+  }
+
+  ctx.globalAlpha = 1;
+}, []);
 
   const resizeCanvas = useCallback(() => {
     const canvas = canvasRef.current;

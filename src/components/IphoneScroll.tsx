@@ -3624,6 +3624,7 @@
 //     </div>
 //   );
 // }
+
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
@@ -3635,6 +3636,7 @@ import {
   MotionValue,
 } from "framer-motion";
 import Lenis from "lenis";
+import NextImage from "next/image";
 
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
 const TOTAL_FRAMES = 480;
@@ -3986,7 +3988,7 @@ const drawFrame = useCallback((displayFrame: number) => {
               transition={{ duration: 0.45, ease: "easeIn" }}
             >
               {/* Logo mark */}
-              <div className="flex flex-col items-center gap-2">
+              {/* <div className="flex flex-col items-center gap-2">
                 <div
                   className="w-12 h-12 rounded-2xl flex items-center justify-center mb-2"
                   style={{ background: "rgba(255,107,53,0.15)", border: "1px solid rgba(255,107,53,0.3)" }}
@@ -4001,8 +4003,17 @@ const drawFrame = useCallback((displayFrame: number) => {
                 >
                   CellCureHub
                 </div>
-              </div>
-
+              </div> */}
+<div className="flex items-center">
+  <NextImage
+    src="/logo.png"
+    alt="CellCure Hub"
+    width={220}
+    height={75}
+    className="object-contain"
+    style={{ filter: "brightness(1.05)" }}
+  />
+</div>
               {/* Progress ring */}
               <div className="relative w-14 h-14 mx-auto">
                 <svg className="w-full h-full -rotate-90" viewBox="0 0 56 56">
@@ -4077,7 +4088,7 @@ const drawFrame = useCallback((displayFrame: number) => {
           animate={revealed ? { opacity: 1, y: 0 } : { opacity: 0, y: -18 }}
           transition={{ duration: 0.9, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="flex items-center gap-2.5">
+          {/* <div className="flex items-center gap-2.5">
             <div
               className="w-7 h-7 rounded-lg flex items-center justify-center"
               style={{ background: "rgba(255,107,53,0.2)", border: "1px solid rgba(255,107,53,0.4)" }}
@@ -4092,7 +4103,18 @@ const drawFrame = useCallback((displayFrame: number) => {
             >
               CellCureHub
             </span>
-          </div>
+          </div> */}
+
+          <div className="flex items-center">
+  <NextImage
+    src="/logo.png"
+    alt="CellCure Hub"
+    width={220}
+    height={75}
+    loading="eager"
+    className="object-contain"
+  />
+</div>
           <span
             className="text-xs tracking-widest uppercase"
             style={{ fontFamily: "'SF Pro Text', sans-serif", color: "rgba(255,255,255,0.3)" }}

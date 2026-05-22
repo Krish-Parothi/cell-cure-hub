@@ -192,7 +192,7 @@ export default function IphoneScroll() {
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (v: number) => {
       // Black overlay: 0.70 → 0.78
-      const black = v <= 0.70 ? 0 : v >= 0.70 ? 1 : (v - 0.70) / 0.03;
+      const black = v <= 0.70 ? 0 : v >= 0.78 ? 1 : (v - 0.70) / 0.08;
       setOverlayState({ black });
     });
     return unsubscribe;

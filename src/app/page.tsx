@@ -39,7 +39,7 @@ export default function Home() {
 
         <div className="relative max-w-3xl mx-auto text-center">
           {/* Pill badge */}
-          <div
+          {/* <div
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-10"
             style={{ background: "rgba(255,107,53,0.08)", border: "1px solid rgba(255,107,53,0.2)" }}
           >
@@ -50,7 +50,7 @@ export default function Home() {
             >
               Coming Soon
             </span>
-          </div>
+          </div> */}
 
           <h2
   className="text-5xl md:text-7xl font-bold tracking-tight leading-none mb-6"

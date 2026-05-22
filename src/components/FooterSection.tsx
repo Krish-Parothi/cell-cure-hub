@@ -463,24 +463,187 @@
 // export default FooterSection;
 
 
+// 'use client';
+
+// import React from 'react';
+// import Link from 'next/link';
+// import Image from 'next/image';
+// import { motion } from 'framer-motion';
+// import { ChevronRight } from 'lucide-react';
+
+// const Instagram = (props: React.SVGProps<SVGSVGElement>) => (
+//   <svg
+//     viewBox="0 0 24 24"
+//     fill="none"
+//     stroke="currentColor"
+//     strokeWidth="2"
+//     strokeLinecap="round"
+//     strokeLinejoin="round"
+//     {...props}
+//   >
+//     <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+//     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+//     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+//   </svg>
+// );
+
+// const Facebook = (props: React.SVGProps<SVGSVGElement>) => (
+//   <svg
+//     viewBox="0 0 24 24"
+//     fill="none"
+//     stroke="currentColor"
+//     strokeWidth="2"
+//     strokeLinecap="round"
+//     strokeLinejoin="round"
+//     {...props}
+//   >
+//     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+//   </svg>
+// );
+
+// export function FooterSection() {
+//   const upcomingServices = [
+//     'Component Micro-Soldering',
+//     'BGA Processor Reballing',
+//     'Surgical Screen Recovery',
+//     'Liquid Damage Treatment',
+//     'Advanced Fault Diagnostics',
+//   ];
+
+//   return (
+//     <footer className="relative bg-[#050505] z-20 overflow-hidden select-none font-sans">
+//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-10 relative z-10">
+        
+//         {/* Brand Logo Row - Positioned Sleekly Above the Columns */}
+//         <div className="mb-10">
+//           <Link href="/" className="block group w-fit">
+//             <Image 
+//               src="/logo.png"
+//               alt="CellCure Hub Logo"
+//               width={130}
+//               height={45}
+//               className="object-contain filter brightness-[1.05] drop-shadow-[0_0_8px_rgba(255,92,0,0.12)] group-hover:scale-[1.01] transition-transform duration-300"
+//             />
+//           </Link>
+//         </div>
+
+//         {/* Main Columns Layout - Symmetrically Aligned */}
+//         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8 pb-16">
+          
+//           {/* Column 1: About Us Description & Socials (5 cols) */}
+//           <div className="md:col-span-5 space-y-4">
+//             <h4 className="text-xs font-black uppercase tracking-widest text-[#FF5C00]">About Us</h4>
+//             <p className="text-sm text-white/50 leading-relaxed max-w-sm">
+//               Nagpur&apos;s upcoming premium gadget diagnostic and micro-soldering restoration lab. We specialize in component-level trace repairs, micro BGA chip swaps, and optical glass recoveries.
+//             </p>
+            
+//             {/* Social Outlined Circles */}
+//             <div className="flex items-center gap-3 pt-2">
+//               <a 
+//                 href="https://www.instagram.com/cellcure_hub/"
+//                 target="_blank"
+//                 rel="noopener noreferrer"
+//                 className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-white transition-all duration-300"
+//               >
+//                 <Instagram className="w-4 h-4" />
+//               </a>
+//               <a 
+//                 href="https://facebook.com"
+//                 target="_blank"
+//                 rel="noopener noreferrer"
+//                 className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-white transition-all duration-300"
+//               >
+//                 <Facebook className="w-4 h-4" />
+//               </a>
+//             </div>
+//           </div>
+
+//           {/* Column 2: Upcoming Services (3 cols) */}
+//           <div className="md:col-span-3 space-y-4">
+//             <h4 className="text-xs font-black uppercase tracking-widest text-[#FF5C00]">Upcoming Services</h4>
+//             <ul className="space-y-3">
+//               {upcomingServices.map((service) => (
+//                 <li key={service} className="flex items-center gap-1.5 text-sm text-white/40">
+//                   <ChevronRight className="w-3.5 h-3.5 text-[#FF5C00]/60 flex-shrink-0" />
+//                   {service}
+//                 </li>
+//               ))}
+//             </ul>
+//           </div>
+
+//           {/* Column 3: Newsletter Sign-up (4 cols) */}
+//           <div className="md:col-span-4 space-y-4">
+//             <h4 className="text-xs font-black uppercase tracking-widest text-[#FF5C00]">Stay Notified</h4>
+//             <p className="text-sm text-white/50 leading-relaxed">
+//               Subscribe to get notified as soon as bookings go live and receive updates from the lab.
+//             </p>
+            
+//             <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-2 pt-2">
+//               <input 
+//                 type="email" 
+//                 placeholder="Email Address" 
+//                 className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#FF5C00]/50 transition-colors w-full"
+//               />
+//               <button 
+//                 type="submit"
+//                 className="bg-[#FF5C00] hover:bg-[#FF7A30] text-white text-xs font-black uppercase tracking-wider px-5 py-2.5 rounded-xl shadow-[0_2px_10px_rgba(255,92,0,0.25)] hover:shadow-[0_4px_16px_rgba(255,92,0,0.4)] active:scale-[0.98] transition-all duration-300"
+//               >
+//                 Notify
+//               </button>
+//             </form>
+//           </div>
+
+//         </div>
+
+//         {/* Giant Centered Slogan Backdrop - Less bold, clean entrance reveal animation */}
+//         <div className="py-12 overflow-hidden select-none flex justify-center items-center">
+//           <motion.h1 
+//             initial={{ opacity: 0, y: 15 }}
+//             whileInView={{ opacity: 0.1, y: 0 }}
+//             viewport={{ once: true }}
+//             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+//             className="text-[14vw] sm:text-[8vw] font-medium text-center leading-none tracking-tighter select-none font-sans text-white cursor-default"
+//           >
+//             CellCureHub
+//           </motion.h1>
+//         </div>
+
+//         {/* Bottom Credits Bar - No borders */}
+//         <div className="pt-8 flex flex-col sm:flex-row items-center justify-center gap-2 text-xs font-semibold text-white/30">
+//           <p className="font-mono text-center sm:text-left">
+//             &copy; {new Date().getFullYear()} CELL CURE HUB. ALL RIGHTS RESERVED.
+//           </p>
+//           <span className="hidden sm:inline text-white/20">•</span>
+//           <p className="text-center sm:text-left">
+//             Made and Managed by{' '}
+//             <a 
+//               href="https://www.shaibyasolutions.com" 
+//               target="_blank" 
+//               rel="noopener noreferrer" 
+//               className="text-white/50 hover:text-[#FF5C00] transition-colors duration-200 underline decoration-white/10"
+//             >
+//               Shaibya Solutions
+//             </a>
+//           </p>
+//         </div>
+
+//       </div>
+//     </footer>
+//   );
+// }
+
+// export default FooterSection;
+
 'use client';
 
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { ChevronRight } from 'lucide-react';
+import { MapPin, Phone, Mail } from 'lucide-react';
 
 const Instagram = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
     <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
@@ -488,118 +651,104 @@ const Instagram = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const Facebook = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    {...props}
-  >
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
   </svg>
 );
 
 export function FooterSection() {
-  const upcomingServices = [
-    'Component Micro-Soldering',
-    'BGA Processor Reballing',
-    'Surgical Screen Recovery',
-    'Liquid Damage Treatment',
-    'Advanced Fault Diagnostics',
-  ];
-
   return (
     <footer className="relative bg-[#050505] z-20 overflow-hidden select-none font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-10 relative z-10">
-        
-        {/* Brand Logo Row - Positioned Sleekly Above the Columns */}
-        <div className="mb-10">
-          <Link href="/" className="block group w-fit">
-            <Image 
+
+        {/* Top: Logo + thin rule */}
+        <div className="flex items-center gap-6 mb-14">
+          <Link href="/" className="block group flex-shrink-0">
+            <Image
               src="/logo.png"
               alt="CellCure Hub Logo"
-              width={130}
-              height={45}
+              width={120}
+              height={42}
               className="object-contain filter brightness-[1.05] drop-shadow-[0_0_8px_rgba(255,92,0,0.12)] group-hover:scale-[1.01] transition-transform duration-300"
             />
           </Link>
+          <div className="flex-1 h-px bg-white/[0.06]" />
+          {/* Powered by badge — top right */}
+          <div className="flex items-center gap-2 flex-shrink-0">
+            <span className="text-[10px] uppercase tracking-widest text-white/25 font-semibold">Powered by</span>
+            <span className="text-[10px] uppercase tracking-widest text-[#FF5C00]/80 font-black">Mukul Mobiles</span>
+            <span className="hidden sm:inline text-[10px] text-white/20 font-medium italic">· 25 years of trust</span>
+          </div>
         </div>
 
-        {/* Main Columns Layout - Symmetrically Aligned */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8 pb-16">
-          
-          {/* Column 1: About Us Description & Socials (5 cols) */}
-          <div className="md:col-span-5 space-y-4">
+        {/* Main 2-col layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 pb-16 items-start">
+
+          {/* Left: About */}
+          <div className="space-y-5">
             <h4 className="text-xs font-black uppercase tracking-widest text-[#FF5C00]">About Us</h4>
-            <p className="text-sm text-white/50 leading-relaxed max-w-sm">
-              Nagpur&apos;s upcoming premium gadget diagnostic and micro-soldering restoration lab. We specialize in component-level trace repairs, micro BGA chip swaps, and optical glass recoveries.
+            <p className="text-sm text-white/50 leading-[1.85]">
+              Great technology deserves exceptional care. Built on Mukul Mobile&apos;s 25-year legacy of trust and expertise, CellCure Hub is designed to make mobile repair effortless — from diagnosis to delivery. Combining skilled craftsmanship, modern technology, and transparent service, we restore devices with the precision they deserve and the confidence our customers expect.
             </p>
-            
-            {/* Social Outlined Circles */}
-            <div className="flex items-center gap-3 pt-2">
-              <a 
+            {/* Socials */}
+            <div className="flex items-center gap-3 pt-1">
+              <a
                 href="https://www.instagram.com/cellcure_hub/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-white transition-all duration-300"
+                className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-[#FF5C00]/60 transition-all duration-300"
               >
                 <Instagram className="w-4 h-4" />
               </a>
-              <a 
+              <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-white transition-all duration-300"
+                className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-[#FF5C00]/60 transition-all duration-300"
               >
                 <Facebook className="w-4 h-4" />
               </a>
             </div>
           </div>
 
-          {/* Column 2: Upcoming Services (3 cols) */}
-          <div className="md:col-span-3 space-y-4">
-            <h4 className="text-xs font-black uppercase tracking-widest text-[#FF5C00]">Upcoming Services</h4>
-            <ul className="space-y-3">
-              {upcomingServices.map((service) => (
-                <li key={service} className="flex items-center gap-1.5 text-sm text-white/40">
-                  <ChevronRight className="w-3.5 h-3.5 text-[#FF5C00]/60 flex-shrink-0" />
-                  {service}
-                </li>
-              ))}
+          {/* Right: Contact / Find Us */}
+          <div className="space-y-5">
+            <h4 className="text-xs font-black uppercase tracking-widest text-[#FF5C00]">Find Us</h4>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 text-[#FF5C00]/60 mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-white/45 leading-relaxed">
+                  Mukul Mobile, Nagpur, Maharashtra
+                </span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Phone className="w-4 h-4 text-[#FF5C00]/60 flex-shrink-0" />
+                <a href="tel:+91XXXXXXXXXX" className="text-sm text-white/45 hover:text-white/70 transition-colors duration-200">
+                  +91 XXXXX XXXXX
+                </a>
+              </li>
+              <li className="flex items-center gap-3">
+                <Mail className="w-4 h-4 text-[#FF5C00]/60 flex-shrink-0" />
+                <a href="mailto:hello@cellcurehub.in" className="text-sm text-white/45 hover:text-white/70 transition-colors duration-200">
+                  hello@cellcurehub.in
+                </a>
+              </li>
             </ul>
-          </div>
 
-          {/* Column 3: Newsletter Sign-up (4 cols) */}
-          <div className="md:col-span-4 space-y-4">
-            <h4 className="text-xs font-black uppercase tracking-widest text-[#FF5C00]">Stay Notified</h4>
-            <p className="text-sm text-white/50 leading-relaxed">
-              Subscribe to get notified as soon as bookings go live and receive updates from the lab.
-            </p>
-            
-            <form onSubmit={(e) => e.preventDefault()} className="flex flex-col sm:flex-row gap-2 pt-2">
-              <input 
-                type="email" 
-                placeholder="Email Address" 
-                className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-white/30 focus:outline-none focus:border-[#FF5C00]/50 transition-colors w-full"
-              />
-              <button 
-                type="submit"
-                className="bg-[#FF5C00] hover:bg-[#FF7A30] text-white text-xs font-black uppercase tracking-wider px-5 py-2.5 rounded-xl shadow-[0_2px_10px_rgba(255,92,0,0.25)] hover:shadow-[0_4px_16px_rgba(255,92,0,0.4)] active:scale-[0.98] transition-all duration-300"
-              >
-                Notify
-              </button>
-            </form>
+            {/* Opening Hours */}
+            <div className="pt-2 border-t border-white/[0.05] space-y-2">
+              <p className="text-[10px] uppercase tracking-widest text-white/25 font-semibold">Opening Soon</p>
+              <p className="text-sm text-white/40">Stay tuned — bookings launching shortly.</p>
+            </div>
           </div>
 
         </div>
 
-        {/* Giant Centered Slogan Backdrop - Less bold, clean entrance reveal animation */}
-        <div className="py-12 overflow-hidden select-none flex justify-center items-center">
-          <motion.h1 
+        {/* Giant watermark text */}
+        <div className="py-10 overflow-hidden select-none flex justify-center items-center">
+          <motion.h1
             initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 0.1, y: 0 }}
+            whileInView={{ opacity: 0.06, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             className="text-[14vw] sm:text-[8vw] font-medium text-center leading-none tracking-tighter select-none font-sans text-white cursor-default"
@@ -608,19 +757,19 @@ export function FooterSection() {
           </motion.h1>
         </div>
 
-        {/* Bottom Credits Bar - No borders */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-center gap-2 text-xs font-semibold text-white/30">
-          <p className="font-mono text-center sm:text-left">
+        {/* Bottom bar */}
+        <div className="pt-6 border-t border-white/[0.04] flex flex-col sm:flex-row items-center justify-center gap-2 text-xs font-semibold text-white/25">
+          <p className="font-mono text-center">
             &copy; {new Date().getFullYear()} CELL CURE HUB. ALL RIGHTS RESERVED.
           </p>
-          <span className="hidden sm:inline text-white/20">•</span>
-          <p className="text-center sm:text-left">
+          <span className="hidden sm:inline text-white/15">•</span>
+          <p className="text-center">
             Made and Managed by{' '}
-            <a 
-              href="https://www.shaibyasolutions.com" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="text-white/50 hover:text-[#FF5C00] transition-colors duration-200 underline decoration-white/10"
+            <a
+              href="https://www.shaibyasolutions.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/40 hover:text-[#FF5C00] transition-colors duration-200 underline decoration-white/10"
             >
               Shaibya Solutions
             </a>

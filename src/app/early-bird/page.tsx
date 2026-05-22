@@ -10,7 +10,7 @@ const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 export default function EarlyBirdPage() {
-  const [form, setForm] = useState({ name: '', mobile: '', address: '' });
+  const [form, setForm] = useState({ name: '', mobile: '', email: '', address: '' });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -19,12 +19,16 @@ export default function EarlyBirdPage() {
     e.preventDefault();
     setError('');
     
-    if (!form.name || !form.mobile || !form.address) {
+    if (!form.name || !form.mobile || !form.email || !form.address) {
       setError('All fields are required.');
       return;
     }
     if (!/^\d{10}$/.test(form.mobile.trim())) {
       setError("Please enter a valid 10-digit mobile number.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
+      setError("Please enter a valid email address.");
       return;
     }
 
@@ -34,7 +38,7 @@ export default function EarlyBirdPage() {
     const { data, error: dbError } = await supabase
       .from('early_bird_users')
       .insert([
-        { name: form.name, mobile: form.mobile, address: form.address }
+        { name: form.name, mobile: form.mobile, email: form.email, address: form.address }
       ]);
 
     setLoading(false);
@@ -43,7 +47,7 @@ export default function EarlyBirdPage() {
       setError(dbError.message);
     } else {
       setSuccess(true);
-      setForm({ name: '', mobile: '', address: '' });
+      setForm({ name: '', mobile: '', email: '', address: '' });
     }
   };
 
@@ -71,10 +75,13 @@ export default function EarlyBirdPage() {
             </div>
             <h2 className="text-3xl font-black text-zinc-900 mb-4 tracking-tighter uppercase">You&apos;re On The List!</h2>
             <p className="text-zinc-500 leading-relaxed font-medium">
-              We&apos;ve reserved your 15% off Early Bird discount. We will notify you at <strong className="text-zinc-800">{form.mobile}</strong> when we launch in Nagpur.
+              We&apos;ve reserved your 15% off Early Bird discount. We will notify you at <strong className="text-zinc-800">{form.email}</strong> when we launch in Nagpur.
             </p>
             <button 
-              onClick={() => setSuccess(false)}
+              onClick={() => {
+                setSuccess(false);
+                setForm({ name: '', mobile: '', email: '', address: '' });
+              }}
               className="mt-8 text-sm font-bold text-zinc-400 hover:text-[#FF6B35] uppercase tracking-widest transition-colors"
             >
               Register Another Person
@@ -112,6 +119,17 @@ export default function EarlyBirdPage() {
                   onChange={e => setForm({...form, mobile: e.target.value})}
                   className="w-full px-5 py-4 rounded-xl bg-zinc-50 border border-zinc-200 text-zinc-900 focus:outline-none focus:ring-4 focus:ring-[#FF6B35]/10 focus:border-[#FF6B35] transition-all font-medium placeholder:font-normal placeholder:text-zinc-400"
                   placeholder="9876543210"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 ml-1">Email Address</label>
+                <input 
+                  type="email" 
+                  value={form.email}
+                  onChange={e => setForm({...form, email: e.target.value})}
+                  className="w-full px-5 py-4 rounded-xl bg-zinc-50 border border-zinc-200 text-zinc-900 focus:outline-none focus:ring-4 focus:ring-[#FF6B35]/10 focus:border-[#FF6B35] transition-all font-medium placeholder:font-normal placeholder:text-zinc-400"
+                  placeholder="rahul@gmail.com"
                 />
               </div>
 

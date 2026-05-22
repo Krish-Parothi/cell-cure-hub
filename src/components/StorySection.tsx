@@ -1185,12 +1185,14 @@ export function StorySection() {
     offset: ["start start", "end end"]
   });
 
+  
   // Smooth scroll progress
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
   });
+  
 
   const angleSpacing = 52;
   const radius = 950;
@@ -1304,7 +1306,7 @@ export function StorySection() {
       description: "The era of cellular networks and micro-circuitry. We adapted to repairing the legendary Nokia 3310, Motorola Razrs, and early transceiver chip boards. Debugging radio signal pathways and replacing monochrome screen backlights became our first foray into electronics.",
       icon: Smartphone,
       color: "from-blue-900/20 to-blue-950/5",
-      image: "/story/2004.webp",
+      image: "/story/2000.webp",
       graphic: (
         <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
           {/* Nokia style retro mobile wireframe outline */}

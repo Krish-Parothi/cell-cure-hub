@@ -1259,7 +1259,7 @@ export function StorySection() {
       description: "We are Cell Cure Hub. When standard repair shops label your device 'irreparable', we begin our work. From micro-soldering mainboards to BGA chip reballing, we restore tech with surgical precision.",
       icon: Activity,
       color: "from-[#FF5C00]/20 to-[#FF8C39]/5",
-      image: "/story/0.webp",
+      image: "/story/1999_2.webp",
       graphic: (
         <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
           <div className="absolute w-48 h-48 rounded-full border border-[#FF5C00]/20 animate-[ping_4s_infinite_linear]" />

@@ -1590,7 +1590,7 @@ export function StorySection() {
                     </p>
                   </div>
 
-                  <div className="h-44 rounded-2xl border border-white/5 bg-black/40 z-10 flex items-center justify-center p-4">
+                  <div className="min-h-44 rounded-2xl border border-white/5 bg-black/40 z-10 flex items-center justify-center p-4">
                     {slide.image ? (
                       <img 
                         src={slide.image} 

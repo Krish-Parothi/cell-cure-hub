@@ -809,8 +809,10 @@ import Lenis from "lenis";
 import NextImage from "next/image";
 
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
+// const TOTAL_FRAMES = 480;
 const TOTAL_FRAMES = 480;
-const FRAME_PREFIX = "/iphone-wow-images/ezgif-frame-";
+// const FRAME_PREFIX = "/iphone-wow-images/ezgif-frame-";
+const FRAME_PREFIX = "https://ik.imagekit.io/yzstxngc8/iphone-frames/image";
 
 // ─── MOBILE FRAME CONFIG (WebP, 160 frames, ~1.5 MB total) ───────────────────
 const MOBILE_TOTAL  = 160;   // every 3rd original frame
@@ -818,7 +820,7 @@ const MOBILE_STRIDE = 3;     // 480 / 160 = 3
 const MOBILE_PREFIX = "/iphone-mobile-frames/";
 
 function getFramePath(i: number) {
-  return `${FRAME_PREFIX}${String(i + 1).padStart(3, "0")}.webp`;
+  return `${FRAME_PREFIX}${String(i + 1).padStart(3, "0")}.jpg`;
 }
 
 function getMobileFramePath(mobileIdx: number) {

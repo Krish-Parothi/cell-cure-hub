@@ -53,22 +53,31 @@ export default function Home() {
           </div>
 
           <h2
-            className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-none mb-6"
-            style={{ fontFamily: "'SF Pro Display', sans-serif" }}
-          >
-            Something big
-            <br />
-            <span
-              style={{
-                background: "linear-gradient(135deg, #FF6B35 0%, #FF9A6C 50%, #FF6B35 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              is Coming Soon...
-            </span>
-          </h2>
+  className="text-5xl md:text-7xl font-bold tracking-tight leading-none mb-6"
+  style={{
+    fontFamily: "'SF Pro Display', sans-serif",
+    color: "white",
+    lineHeight:"1.10"
+  }}
+>
+  Something big
+  <br />
+
+  <span
+    style={{
+      background:
+        "linear-gradient(135deg, #FF6B35 0%, #FF9A6C 50%, #FF6B35 100%)",
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+      backgroundClip: "text",
+      display: "inline-block",
+    }}
+  >
+    is coming soon in
+    <br />
+    Nagpur...
+  </span>
+</h2>
 
           
 
@@ -76,7 +85,7 @@ export default function Home() {
         </div>
       </section>
 
-      
+      <FooterSection />
     </main>
   );
 }

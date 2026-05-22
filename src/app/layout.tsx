@@ -29,7 +29,7 @@ export default function RootLayout({
         <AuthProvider>
           {children}
           <Toaster />
-          < FloatingChatAssistant />
+          
         </AuthProvider>
       </body>
     </html>

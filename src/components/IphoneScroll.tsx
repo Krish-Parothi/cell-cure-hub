@@ -818,7 +818,7 @@ const MOBILE_STRIDE = 3;     // 480 / 160 = 3
 const MOBILE_PREFIX = "/iphone-mobile-frames/";
 
 function getFramePath(i: number) {
-  return `${FRAME_PREFIX}${String(i + 1).padStart(3, "0")}.jpg`;
+  return `${FRAME_PREFIX}${String(i + 1).padStart(3, "0")}.webp`;
 }
 
 function getMobileFramePath(mobileIdx: number) {

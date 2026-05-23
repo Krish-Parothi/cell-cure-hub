@@ -6,6 +6,7 @@ import { InstagramSection } from "@/components/InstagramSection";
 import { FooterSection } from "@/components/FooterSection";
 import { TopBanner } from "@/components/TopBanner";
 import { EarlyBirdPromo } from "@/components/EarlyBirdPromo";
+import { WhatsAppFloat } from "@/components/WhatsAppFloat"
 
 // ─── PAGE ─────────────────────────────────────────────────────────────────────
 export default function Home() {
@@ -15,8 +16,8 @@ export default function Home() {
 
       {/* ── SCROLL ANIMATION ─────────────────────────────────────────────── */}
       <IphoneScroll />
-      
-      <EarlyBirdPromo />
+
+      {/* <EarlyBirdPromo /> */}
 
       <StorySection />
       <NagpurMapSection />
@@ -86,6 +87,7 @@ export default function Home() {
       </section>
 
       <FooterSection />
+      <WhatsAppFloat />
     </main>
   );
 }

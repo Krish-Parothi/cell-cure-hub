@@ -9,6 +9,7 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
+
 export default function EarlyBirdSection() {
   const [form, setForm] = useState({ name: "", phone: "", email: "", address: "" });
   const [submitted, setSubmitted] = useState(false);
@@ -60,6 +61,7 @@ export default function EarlyBirdSection() {
     }
     setShowTable(!showTable);
   };
+  
 
   return (
     <section

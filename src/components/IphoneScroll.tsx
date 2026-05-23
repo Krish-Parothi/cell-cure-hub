@@ -11,12 +11,13 @@ import {
 } from "framer-motion";
 import Lenis from "lenis";
 import NextImage from "next/image";
+import { EarlyBirdPromo } from "@/components/EarlyBirdPromo";
 
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
 // const TOTAL_FRAMES = 480;
 const TOTAL_FRAMES = 480;
 // const FRAME_PREFIX = "/iphone-wow-images/ezgif-frame-";
-const FRAME_PREFIX = "https://ik.imagekit.io/yzstxngc8/iphone-frames/image";
+const FRAME_PREFIX = "https://ik.imagekit.io/yzstxngc8/iphone-new-frames/image";
 
 // ─── MOBILE FRAME CONFIG (WebP, 160 frames, ~1.5 MB total) ───────────────────
 const MOBILE_TOTAL  = 160;   // every 3rd original frame
@@ -192,8 +193,9 @@ export default function IphoneScroll() {
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (v: number) => {
       // Black overlay: 0.70 → 0.78
-      const black = v <= 0.70 ? 0 : v >= 0.78 ? 1 : (v - 0.70) / 0.08;
+      const black =  v <= 0.70 ? 0 : v >= 0.85 ? 1 : (v - 0.70) / 0.15;
       setOverlayState({ black });
+      
     });
     return unsubscribe;
   }, [scrollYProgress]);
@@ -520,7 +522,7 @@ export default function IphoneScroll() {
     <div
       ref={containerRef}
       className="relative"
-      style={{ height: "1000vh", width: "100%", marginLeft: 0 , marginBottom: "-200vh"}}
+      style={{ height: "1000vh", width: "100%", marginLeft: 0 , marginBottom: "0"}}
     >
       {/* ── LOADER — fades out when loading completes ─────────────────── */}
       <AnimatePresence>
@@ -652,6 +654,25 @@ export default function IphoneScroll() {
             willChange: "opacity"
           }}
         />
+        {/* ── EARLY BIRD REVEAL ────────────────────────────────────────── */}
+        <div
+          style={{
+            opacity: Math.max(0, (overlayState.black - 0.5) / 0.5),
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            zIndex: 51,
+            pointerEvents: overlayState.black > 0.5 ? "auto" : "none",
+            overflow: "hidden",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <EarlyBirdPromo />
+        </div>
 
         {/* Scroll hint — rises up last */}
         <motion.div

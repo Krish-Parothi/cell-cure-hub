@@ -3,7 +3,8 @@ import Link from 'next/link';
 
 export function EarlyBirdPromo() {
   return (
-    <section className="relative px-4 sm:px-6 py-20 sm:py-24 md:py-36 bg-[#050505] border-t border-white/5 select-none overflow-hidden">
+    // <section className="relative px-4 sm:px-6 py-20 sm:py-24 md:py-36 bg-[#050505] border-t border-white/5 select-none overflow-hidden">
+    <section className="relative px-4 sm:px-6 select-none overflow-hidden w-full h-full flex items-center justify-center" style={{ background: "transparent" }}>
       {/* Background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[500px] rounded-[100%] bg-[#FF6B35]/5 blur-[120px] pointer-events-none" />
 

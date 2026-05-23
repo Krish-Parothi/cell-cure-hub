@@ -49,6 +49,20 @@ export const metadata = {
   description: "Nagpur's best mobile repair shop. Screen replacement, battery, IC repair & water damage. Same day service.",
   keywords: "mobile repair nagpur, phone repair nagpur, screen replacement nagpur, battery replacement, IC chip repair",
   metadataBase: new URL("https://cellcurehub.in"),
+
+
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" }, 
+      { url: "/favicon-192x192.png", sizes: "192x192", type: "image/png" }, 
+      { url: "/favicon-512x512.png", sizes: "512x512", type: "image/png" }, 
+
+    ],
+
+    apple: "/apple-touch-icon.png",
+  },
+
   openGraph: {
     title: "Cell Cure Hub | Mobile Repair Nagpur",
     description: "Walk in broken. Walk out fixed.",
@@ -56,6 +70,15 @@ export const metadata = {
     siteName: "Cell Cure Hub",
     locale: "en_IN",
     type: "website",
+    images: [
+    {
+      url: "/web-app-manifest-512x512.png",
+      width: 512,
+      height: 512,
+      alt: "Cell Cure Hub",
+    },
+  ],
+    
   },
 };
 

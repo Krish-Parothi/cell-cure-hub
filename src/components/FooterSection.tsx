@@ -249,11 +249,16 @@ export function FooterSection() {
             <h4 className="text-xs font-black uppercase tracking-widest text-[#FF5C00]">Find Us</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-[#FF5C00]/60 mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-white/45 leading-relaxed">
-                  Mukul Mobile, Nagpur, Maharashtra
-                </span>
-              </li>
+                  <MapPin className="w-4 h-4 text-[#FF5C00]/60 mt-0.5 flex-shrink-0" />
+                  
+                  <a href="https://maps.google.com/?q=Mukul+Mobile,+Nagpur,+Maharashtra"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-white/45 hover:text-white/70 transition-colors duration-200"
+                  >
+                    Mukul Mobile, Nagpur, Maharashtra
+                  </a>
+                </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-[#FF5C00]/60 flex-shrink-0" />
                 <a href="tel:+919322842703" className="text-sm text-white/45 hover:text-white/70 transition-colors duration-200">

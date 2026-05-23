@@ -193,7 +193,7 @@ export default function IphoneScroll() {
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (v: number) => {
       // Black overlay: 0.70 → 0.78
-      const black =  v <= 0.70 ? 0 : v >= 0.85 ? 1 : (v - 0.70) / 0.15;
+     const black = v <= 0.70 ? 0 : v >= 0.78 ? 1 : (v - 0.70) / 0.08;
       setOverlayState({ black });
       
     });
@@ -522,7 +522,7 @@ export default function IphoneScroll() {
     <div
       ref={containerRef}
       className="relative"
-      style={{ height: "1000vh", width: "100%", marginLeft: 0 , marginBottom: "0"}}
+      style={{ height: "1000vh", width: "100%", marginLeft: 0 , marginBottom: "-180vh"}}
     >
       {/* ── LOADER — fades out when loading completes ─────────────────── */}
       <AnimatePresence>

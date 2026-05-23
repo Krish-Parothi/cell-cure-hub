@@ -21,3 +21,7 @@ WITH CHECK (true);
 
 -- Fetch Recent Early Bird Users
 SELECT * FROM public.early_bird_users ORDER BY created_at DESC;
+
+
+ALTER TABLE public.early_bird_users 
+ADD COLUMN email text NOT NULL DEFAULT '';

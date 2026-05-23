@@ -520,7 +520,7 @@ export default function IphoneScroll() {
     <div
       ref={containerRef}
       className="relative"
-      style={{ height: "1000vh", width: "100%", marginLeft: 0 }}
+      style={{ height: "1000vh", width: "100%", marginLeft: 0 , marginBottom: "-220vh"}}
     >
       {/* ── LOADER — fades out when loading completes ─────────────────── */}
       <AnimatePresence>

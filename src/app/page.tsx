@@ -15,7 +15,7 @@ export default function Home() {
 
       {/* ── SCROLL ANIMATION ─────────────────────────────────────────────── */}
       <IphoneScroll />
-
+      
       <EarlyBirdPromo />
 
       <StorySection />

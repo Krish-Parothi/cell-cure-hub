@@ -723,14 +723,14 @@ export function FooterSection() {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-[#FF5C00]/60 flex-shrink-0" />
-                <a href="tel:+91XXXXXXXXXX" className="text-sm text-white/45 hover:text-white/70 transition-colors duration-200">
-                  +91 XXXXX XXXXX
+                <a href="tel:+919322842703" className="text-sm text-white/45 hover:text-white/70 transition-colors duration-200">
+                  +91 93228 42703
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-[#FF5C00]/60 flex-shrink-0" />
-                <a href="mailto:hello@cellcurehub.in" className="text-sm text-white/45 hover:text-white/70 transition-colors duration-200">
-                  hello@cellcurehub.in
+                <a href="mailto:cellcurehub@gmail.com" className="text-sm text-white/45 hover:text-white/70 transition-colors duration-200">
+                  cellcurehub@gmail.com
                 </a>
               </li>
             </ul>

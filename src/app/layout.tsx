@@ -61,6 +61,10 @@ icons: {
   apple: "/apple-touch-icon.png",
 },
 
+verification: {
+  google: "2QIMA6amqNb1A4o3vp2tBX6SnbKpEAH03P1zJwL9caU",
+},
+
   openGraph: {
     title: "Cell Cure Hub | Mobile Repair Nagpur",
     description: "Walk in broken. Walk out fixed.",

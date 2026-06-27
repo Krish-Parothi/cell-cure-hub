@@ -75,7 +75,7 @@ verification: {
     type: "website",
     images: [
     {
-      url: "/web-app-manifest-512x512.png",
+      url: "/logo.png",
       width: 512,
       height: 512,
       alt: "CellCure Hub",

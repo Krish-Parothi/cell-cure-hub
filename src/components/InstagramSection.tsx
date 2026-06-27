@@ -72,7 +72,7 @@ const posts: InstaPost[] = [
     id: 'board-repair',
     type: 'reel',
     title: 'The Best Decision',
-    description: 'From a crazy idea to a real startup — this is how Cell Cure Hub was born. Best decision we ever made.',
+    description: 'From a crazy idea to a real startup — this is how CellCure Hub was born. Best decision we ever made.',
     likes: '1,420',
     comments: '94',
     href: 'https://www.instagram.com/reel/DYB-usMp53z/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
@@ -86,13 +86,13 @@ const posts: InstaPost[] = [
     id: 'water-damage',
     type: 'reel',
     title: 'We Launched 🚀',
-    description: 'Cell Cure Hub is officially live! The startup is real, the mission is clear — premium mobile repair, Nagpur.',
+    description: 'CellCure Hub is officially live! The startup is real, the mission is clear — premium mobile repair, Nagpur.',
     likes: '2,118',
     comments: '145',
     href: 'https://www.instagram.com/reel/DYo2HfZpdnw/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
     icon: Droplets,
     filename: 'repair_2.webp',
-    imageAlt: 'Cell Cure Hub startup launch',
+    imageAlt: 'CellCure Hub startup launch',
     // Face center-left of frame
     pos: '35% center',
   },
@@ -106,7 +106,7 @@ const posts: InstaPost[] = [
     href: 'https://www.instagram.com/reel/DX8yAGnqj71/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
     icon: Smartphone,
     filename: 'studio_2.webp',
-    imageAlt: 'Startup journey Cell Cure Hub',
+    imageAlt: 'Startup journey CellCure Hub',
     // Person right-center, large text left — center on person
     pos: '60% center',
   },
@@ -120,7 +120,7 @@ const posts: InstaPost[] = [
     href: 'https://www.instagram.com/reel/DYUJa2cNfiK/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
     icon: Activity,
     filename: 'office_2.webp',
-    imageAlt: 'Inspiration and trust Cell Cure Hub',
+    imageAlt: 'Inspiration and trust CellCure Hub',
     // Face fills most of frame — center
     pos: '50% center',
   },
@@ -134,7 +134,7 @@ const posts: InstaPost[] = [
     href: 'https://www.instagram.com/reel/DYrW7h-p3SO/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==',
     icon: Sparkles,
     filename: 'doorstep_2.webp',
-    imageAlt: 'Nagpur startup community Cell Cure Hub',
+    imageAlt: 'Nagpur startup community CellCure Hub',
     // Two people — shift slightly right to include both
     pos: '65% center',
   },
@@ -151,7 +151,7 @@ const cardVariants = {
   visible: { opacity: 1, y: 0, scale: 1, transition: { type: 'spring' as const, stiffness: 80, damping: 15 } },
 };
 
-const titleWords = 'INSIDE CELL CURE HUB'.split(' ');
+const titleWords = 'INSIDE CELLCURE HUB'.split(' ');
 
 export function InstagramSection() {
   return (
@@ -172,7 +172,7 @@ export function InstagramSection() {
           >
             {titleWords.map((word, idx) => (
               <span key={idx} className="inline-block overflow-hidden h-fit py-1">
-                <motion.span variants={wordVariants} className={cn('inline-block origin-bottom-left', (word === 'CELL' || word === 'CURE' || word === 'HUB') && 'text-[#FF5C00]')}>
+                <motion.span variants={wordVariants} className={cn('inline-block origin-bottom-left', (word === 'CELLCURE' || word === 'HUB') && 'text-[#FF5C00]')}>
                   {word}
                 </motion.span>
               </span>

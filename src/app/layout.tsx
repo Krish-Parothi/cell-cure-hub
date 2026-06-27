@@ -45,7 +45,7 @@ import { Toaster } from '@/components/ui/sonner';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: "Cell Cure Hub | Mobile Repair Nagpur",
+  title: "CellCure Hub | Mobile Repair Nagpur",
   description: "Nagpur's best mobile repair shop. Screen replacement, battery, IC repair & water damage. Same day service.",
   keywords: "mobile repair nagpur, phone repair nagpur, screen replacement nagpur, battery replacement, IC chip repair",
   metadataBase: new URL("https://cellcurehub.in"),
@@ -67,10 +67,10 @@ verification: {
 },
 
   openGraph: {
-    title: "Cell Cure Hub | Mobile Repair Nagpur",
+    title: "CellCure Hub | Mobile Repair Nagpur",
     description: "Walk in broken. Walk out fixed.",
     url: "https://cellcurehub.in",
-    siteName: "Cell Cure Hub",
+    siteName: "CellCure Hub",
     locale: "en_IN",
     type: "website",
     images: [
@@ -78,7 +78,7 @@ verification: {
       url: "/web-app-manifest-512x512.png",
       width: 512,
       height: 512,
-      alt: "Cell Cure Hub",
+      alt: "CellCure Hub",
     },
   ],
     

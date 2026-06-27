@@ -308,7 +308,7 @@ export function StorySection() {
       id: "intro",
       title: "WE GO TO THE DEPTHS",
       tagline: "WHERE OTHERS TURN BACK",
-      description: "We are Cell Cure Hub. When standard repair shops label your device 'irreparable', we begin our work. From micro-soldering mainboards to BGA chip reballing, we restore tech with surgical precision.",
+      description: "We are CellCure Hub. When standard repair shops label your device 'irreparable', we begin our work. From micro-soldering mainboards to BGA chip reballing, we restore tech with surgical precision.",
       icon: Activity,
       color: "from-[#FF5C00]/20 to-[#FF8C39]/5",
       image: "/story/1999_2.webp",
@@ -460,7 +460,7 @@ export function StorySection() {
       id: "trust",
       title: "Trusted by Nagpur",
       tagline: "DELIVERING COMPROMISE-FREE CARE",
-      description: "Our numbers speak for our dedication. From simple touch screens to folding screen swaps and chip restorations, Cell Cure Hub delivers unmatched warranty, genuine OEM-grade replacement units, and Nagpur's highest diagnostics accuracy.",
+      description: "Our numbers speak for our dedication. From simple touch screens to folding screen swaps and chip restorations, CellCure Hub delivers unmatched warranty, genuine OEM-grade replacement units, and Nagpur's highest diagnostics accuracy.",
       icon: Layers,
       color: "from-zinc-900 to-black",
       graphic: (

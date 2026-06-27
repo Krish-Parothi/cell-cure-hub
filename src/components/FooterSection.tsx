@@ -126,7 +126,7 @@
 //         {/* Bottom bar */}
 //         <div className="pt-6 border-t border-white/[0.04] flex flex-col sm:flex-row items-center justify-center gap-2 text-xs font-semibold text-white/25">
 //           <p className="font-mono text-center">
-//             &copy; {new Date().getFullYear()} CELL CURE HUB. ALL RIGHTS RESERVED.
+//             &copy; {new Date().getFullYear()} CELLCURE HUB. ALL RIGHTS RESERVED.
 //           </p>
 //           <span className="hidden sm:inline text-white/15">•</span>
 //           <p className="text-center">
@@ -318,7 +318,7 @@ export function FooterSection() {
         {/* Bottom bar */}
         <div className="pt-6 border-t border-white/[0.04] flex flex-col sm:flex-row items-center justify-center gap-2 text-xs font-semibold text-white/25">
           <p className="font-mono text-center">
-            &copy; {new Date().getFullYear()} CELL CURE HUB. ALL RIGHTS RESERVED.
+            &copy; {new Date().getFullYear()} CELLCURE HUB. ALL RIGHTS RESERVED.
           </p>
           <span className="hidden sm:inline text-white/15">•</span>
           <p className="text-center">

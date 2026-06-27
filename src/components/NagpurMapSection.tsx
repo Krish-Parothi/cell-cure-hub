@@ -130,7 +130,7 @@
 // //               </h2>
               
 // //               <p className="text-white/60 text-sm sm:text-base leading-relaxed">
-// //                 Cell Cure Hub is expanding. We are currently delivering doorstep premium repairs, diagnostic services, and hardware restorations across all zones of Nagpur.
+// //                 CellCure Hub is expanding. We are currently delivering doorstep premium repairs, diagnostic services, and hardware restorations across all zones of Nagpur.
 // //               </p>
 // //             </div>
 
@@ -355,7 +355,7 @@
 //                 DELIVERING BEST SERVICE <span className="text-[#FF5C00]">IN NAGPUR</span>
 //               </h2>
 //               <p className="text-white/60 text-sm leading-relaxed">
-//                 Cell Cure Hub is expanding. We are currently delivering doorstep premium repairs, diagnostic services, and hardware restorations across all zones of Nagpur.
+//                 CellCure Hub is expanding. We are currently delivering doorstep premium repairs, diagnostic services, and hardware restorations across all zones of Nagpur.
 //               </p>
 //             </div>
 
@@ -606,7 +606,7 @@ export function NagpurMapSection() {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="text-white/60 text-sm sm:text-base leading-relaxed"
               >
-                Cell Cure Hub is expanding. We are currently delivering doorstep premium repairs, diagnostic services, and hardware restorations across all zones of Nagpur.
+                CellCure Hub is expanding. We are currently delivering doorstep premium repairs, diagnostic services, and hardware restorations across all zones of Nagpur.
               </motion.p>
             </div>
 
